@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.frxs.boss</groupId>
+        <artifactId>web-areaboss</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>frxs-web-areaboss</artifactId>
+    <packaging>jar</packaging>
+    <version>${module.version}</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frxs.framework</groupId>
+            <artifactId>frxsframework-integration</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.frxs.framework</groupId>
+                    <artifactId>frxsframework-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.frxs.framework</groupId>
+            <artifactId>frxsframework-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.frxs.fund</groupId>
+            <artifactId>fund-service-api</artifactId>
+            <version>${frxs.fund.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frxs.merchant</groupId>
+            <artifactId>merchant-service-api</artifactId>
+            <version>${frxs.merchant.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frxs.promotion</groupId>
+            <artifactId>promotion-service-api</artifactId>
+            <version>${frxs.promotion.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frxs.user</groupId>
+            <artifactId>user-service-api</artifactId>
+            <version>${frxs.user.version}</version>
+        </dependency>
+        <!--trade 核心api-->
+        <dependency>
+            <groupId>com.frxs.trade</groupId>
+            <artifactId>trade-service-api</artifactId>
+            <version>${frxs.trade.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.frxs.sso</groupId>
+            <artifactId>boot-sso-client</artifactId>
+            <version>${boot.sso.client.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>dubbo</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>${httpcomponents.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.10.1</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>AreabossApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

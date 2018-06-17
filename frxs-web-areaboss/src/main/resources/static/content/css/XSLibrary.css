@@ -1,0 +1,195 @@
+﻿
+
+/*******************  XSLibrary 分页 start  *******************/
+.pages_bar {
+    width: 100%;
+    height: 33px;
+    line-height: 33px;
+    background: #e0ebf4;
+    font: 12px/33px "宋体";
+    border-bottom: 1px solid #adbac5;
+    border-left: none;
+    border-right: none;
+}
+
+    .pages_bar .page_right {
+        width: auto;
+        float: right;
+        margin-right: 10px;
+        color: #3e3e3e;
+    }
+
+    .pages_bar a {
+        margin: 2px 2px;
+    }
+
+    .pages_bar .page_tags {
+        margin-left: 4px;
+        margin-right: 4px;
+        float: left;
+    }
+
+    .pages_bar .page_first,
+    .pages_bar .page_prev,
+    .pages_bar .page_next,
+    .pages_bar .page_last,
+    .pages_bar .page_goto_button {
+        color: #444;
+        background: #fafafa;
+        background-repeat: repeat-x;
+        border: 1px solid #bbb;
+        background: -webkit-linear-gradient(top,#ffffff 0,#eeeeee 100%);
+        background: -moz-linear-gradient(top,#ffffff 0,#eeeeee 100%);
+        background: -o-linear-gradient(top,#ffffff 0,#eeeeee 100%);
+        background: linear-gradient(to bottom,#ffffff 0,#eeeeee 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#eeeeee,GradientType=0);
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        display: inline-block;
+        height: 24px;
+        line-height: 24px;
+        text-decoration: none;
+        padding: 0px 6px;
+    }
+
+        .pages_bar .page_first:hover,
+        .pages_bar .page_prev:hover,
+        .pages_bar .page_next:hover,
+        .pages_bar .page_last:hover,
+        .pages_bar .page_goto_button:hover {
+            color: #444;
+            background: #fafafa;
+            background-repeat: repeat-x;
+            border: 1px solid #ADCFEC;
+            background: -webkit-linear-gradient(top,#ffffff 0,#D3E3F1 100%);
+            background: -moz-linear-gradient(top,#ffffff 0,#D3E3F1 100%);
+            background: -o-linear-gradient(top,#ffffff 0,#D3E3F1 100%);
+            background: linear-gradient(to bottom,#ffffff 0,#D3E3F1 100%);
+            background-repeat: repeat-x;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#D3E3F1,GradientType=0);
+            -moz-border-radius: 5px 5px 5px 5px;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            display: inline-block;
+            height: 24px;
+            line-height: 24px;
+            text-decoration: none;
+            padding: 0px 6px;
+        }
+
+    .pages_bar .page_first_disabled,
+    .pages_bar .page_prev_disabled,
+    .pages_bar .page_next_disabled,
+    .pages_bar .page_last_disabled {
+        color: #bbb;
+    }
+
+        .pages_bar .page_first_disabled:hover,
+        .pages_bar .page_prev_disabled:hover,
+        .pages_bar .page_next_disabled:hover,
+        .pages_bar .page_last_disabled:hover {
+            color: #bbb;
+        }
+
+    .pages_bar .page_prev {
+    }
+
+    .pages_bar .page_next {
+    }
+
+    .pages_bar .page_last {
+    }
+
+    .pages_bar .page_number {
+        float: left;
+        overflow: hidden;
+        margin: 0 20px 0 20px;
+        height: 30px;
+    }
+
+        .pages_bar .page_number a {
+            color: #444;
+            background: #fafafa;
+            border: 1px solid #bbb;
+            display: inline-block;
+            height: 20px;
+            line-height: 20px;
+            text-decoration: none;
+            padding: 0px 7px;
+        }
+
+            .pages_bar .page_number a:hover {
+                background-color: #e0ebf4;
+                border-color: #ADCFEC;
+            }
+
+            .pages_bar .page_number a.page_cur {
+                background-color: #1FC4FF;
+                border: 1px solid #2E99C0;
+                color: white;
+                font-weight: bold;
+            }
+
+    .pages_bar .page_goto {
+        width: 136px;
+        float: left;
+        color: #313d48;
+        font: 12px/33px;
+        margin-left: 20px;
+    }
+
+    .pages_bar .page_enter {
+        width: 30px;
+        text-align: center;
+        height: 22px;
+        line-height: 22px;
+        background: #fff;
+        border: 1px #b8bec4 solid;
+        padding: 0px;
+        vertical-align: top;
+        margin-top: 4px;
+        *margin-top: 0px;
+    }
+
+    .pages_bar .page_goto_button {
+    }
+
+
+/*******************  XSLibrary 分页 end  *******************/
+
+
+.xsjs-LoadingBG { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: black; z-index: 1002; overflow: auto; opacity: 0.3; filter:alpha(opacity=30)}
+.xsjs-LoadingMsg { overflow: auto; position: fixed; top: 50%; left: 48%; z-index: 1003; overflow: auto; border: 3px solid #2E6191; background-color: #C5E5FF; padding: 8px 18px; border-radius: 7px; filter:progid:DXImageTransform.Microsoft.Shadow(color=#2E6191,direction=120,strength=3);/*ie*/ -moz-box-shadow: 0px 0px 16px #2E6191;/*firefox*/ -webkit-box-shadow: 0px 0px 16px #2E6191;/*safari或chrome*/ box-shadow:0px 0px 16px #2E6191;/*opera或ie9*/ font-size: 14px;}
+.xsjs-jwindow-loading {
+  padding: 10px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgb(149, 184, 231);
+  width: 226px;
+  background-image: url(../images/loading.gif);
+  background-repeat: no-repeat;
+  background-position-x: 12px;
+  background-position-y: 9px;
+  text-indent: 2em;
+}
+
+.xs-menu-num div{
+    padding-left: 0px;
+}
+.xs-menu-num span.num {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid #cccccc;
+    _border: none;
+    *border: none;
+    text-align: center;
+    margin-left: 2px;
+    margin-right: 6px;
+    color: blue;
+    background-color: #ffffff;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Main</title>
+    <style type="text/css">
+        *
+        {
+            font-size: 14px;
+        }
+
+        body
+        {
+            padding: 20px;
+        }
+
+        .admin
+        {
+            font-weight: bold;
+            line-height: 36px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="admin" th:object="${loginInfoDto}">用 户 名：&nbsp;&nbsp;<span th:text="${loginInfoDto.userName}"></span></div>
+    <div class="admin" th:object="${loginInfoDto}">登录时间：&nbsp;&nbsp;<span th:text="${loginInfoDto.loginTime}"></span></div>
+    <div class="admin" th:object="${loginInfoDto}">登录区域：&nbsp;&nbsp;<span th:text="${loginInfoDto.loginArea}"></span></div>
+</div>
+</body>
+</html>

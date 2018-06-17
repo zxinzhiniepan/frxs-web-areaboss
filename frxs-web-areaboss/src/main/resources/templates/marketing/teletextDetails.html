@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>图文直播详情</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/XSLibrary.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <link href="/Content/css/productImage.css" rel="stylesheet" />
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/content/js/layout.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.easyui.extend.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.form.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/bussiness/marketing/teletextDetails.js}"></script>
+</head>
+<body>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <div id="formTable">
+            <div style="padding: 10px; position: relative">
+                <ul class="xs-forminfo" id="productInfo">
+                    <li>
+                        <label class="tdtitle">供应商：</label>
+                        <label  id="lblVendorName" th:text="${online !=null?online.vendorName:''}"></label>
+                       <input type="hidden" id="imgtextId" name="imgtextId" th:attr="value=${online.imgtextId}"/>
+                    </li>
+                    <li>
+                        <label class="tdtitle">供应商编码：</label>
+                        <label  th:text="${online !=null?online.vendorCode:''}"></label>
+                    </li>
+                    <li>
+                        <label class="tdtitle">商品名称：</label>
+                        <label  id="lblProductName" th:text="${online !=null?online.productName:''}"></label>
+                    </li>
+                    <li>
+                        <label class="tdtitle">图文直播标题：</label>
+                        <label th:text="${online !=null?online.imgTextTitle:''}"></label>
+                    </li>
+                    <li>
+                        <label class="tdtitle" style="float: left;">商品主图: </label>
+                        <div id="productMainImage" style="width: 380px; clear: both; padding-top: 10px; margin-left: 100px">
+                            <div style=" width:400px;  overflow:hidden; border:1px solid #ddd; margin-bottom:15px; padding:5px" th:each="onlineText: ${online.onlineTextDTOs}">
+                                    <table id = "a" th:each="onlineImgs : ${onlineText.onlineImgs}">
+                                        <tr >
+                                            <td valign="middle">
+                                                <input name="imgId"  type="checkbox" th:attr="value=${onlineImgs.imgId}">
+                                            </td>
+                                            <td >
+                                                <img  style="height: 150px;width: 150px;border:1px solid #ccc;"  th:src="@{${onlineImgs.originalImgUrl}}" th:onclick="'pigshow(\''+${onlineImgs.originalImgUrl}+'\')'"/>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                <p ><span style=" padding-left:40px; text-align:left; margin-bottom:15px"  th:text="${onlineText !=null?onlineText.textContent:''}"></span></span></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>&nbsp;
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnReject" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick ="showRejectInfo('REJECT')" >驳回审核</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

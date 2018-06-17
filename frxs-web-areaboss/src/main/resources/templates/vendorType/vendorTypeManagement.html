@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>供应商分类管理</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datePicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/vendorType/vendorTypeManagement.js}"></script>
+</head>
+<body>
+<div style="padding: 50px;">
+    <table>
+        <tr>
+            <td>供应商分类名称：
+            </td>
+            <td>
+                <input id="txtVendorTypeName" name="vendorTypeName" type="text" maxlength="10" />
+                <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>10个汉字以内
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <select size="20" style="width: 200px;" id="ddlVendorTypeName" multiple="multiple">
+                    <option  th:each="vendorTypeDto:${result.record}" th:value="${vendorTypeDto.vendorTypeId}" th:text="${vendorTypeDto.vendorTypeName }"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <a id="btnDelete" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除选择项</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

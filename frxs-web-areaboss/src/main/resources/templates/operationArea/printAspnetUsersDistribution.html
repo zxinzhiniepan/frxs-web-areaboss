@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+</head>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        font-size: 16px;
+        font-family: "宋体";
+    }
+
+    table {
+        margin: 0 auto;
+        width: 794px;
+        border-collapse: collapse;
+        border: none;
+        font-size: 16px;
+    }
+
+    table td {
+        border: solid #000 1px;
+        padding: 5px 2px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    table th {
+        border: solid #000 1px;
+        padding: 5px;
+        font-weight: normal;
+        background: #CCC;
+        font-size: 16px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 24px;
+        line-height: 24px;
+        font-weight: 700;
+    }
+
+    div.nr {
+        margin: 0 auto;
+        width: 794px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    div.nr p {
+        font-size: 16px;
+        line-height: 150%;
+    }
+</style>
+<body>
+
+<div th:each="item:${tradeApiResult}">
+    <h1 style="margin-top: 30px"><span th:text="${item.storeName}+'('+${item.storeNo}+')'+'物流配送表'"></span></h1>
+    <div class="nr">
+        <p><span th:text="'配送线路:'+${item.lineName}"></span></p>
+    </div>
+    <table>
+        <tr>
+            <th style="width: 60px">序号</th>
+            <th style="text-align: left">商品名称</th>
+            <th style="width: 70px;">单价</th>
+            <th style="width: 70px">合计数量</th>
+        </tr>
+        <tr th:each="listItem : ${item.list}">
+            <td  th:text="${listItem.num}"></td>
+            <td style="text-align: left"  th:text="${listItem.productName}"></td>
+            <td  th:text="${listItem.price}"></td>
+            <td  th:text="${#numbers.formatInteger(listItem.qty,0)}"></td>
+        </tr>
+    </table>
+
+    <div style="page-break-before: always;"></div>
+    <h1><span th:text="${item.storeName}+'('+${item.storeNo}+')'+'消费者订单'"></span></h1>
+    <div class="nr">
+        <p><span th:text="'提货时间:'+${#calendars.format(item.deliveryTime,'yyyy-MM-dd')}"></span></p>
+    </div>
+    <table>
+        <tr>
+            <th style="width: 40px">提货<br />
+                单号</th>
+            <th>昵称</th>
+            <th>手机号</th>
+            <th>商品名称</th>
+            <th style="width: 30px;">份数</th>
+            <th style="width: 40px;">金额</th>
+            <th style="width: 100px;">是否代客下单</th>
+            <th style="width: 60px;">提货<br />
+                确认</th>
+        </tr>
+        <tr th:each="consumerItem : ${item.consumerList}">
+            <td style="width: 40px;" th:text="${consumerItem.billOfLading}"></td>
+            <td th:text="${consumerItem.wechatName}"></td>
+            <td th:text="${consumerItem.msisdn}"></td>
+            <td th:text="${consumerItem.productName}"></td>
+            <td style="width: 30px" th:text="${#numbers.formatInteger(consumerItem.qty,0)}"></td>
+            <td style="width: 40px;" th:text="${consumerItem.price}"></td>
+            <td style="width: 100px" th:text="${consumerItem.isValetOrder}"></td>
+            <td style="width: 60px"></td>
+        </tr>
+    </table>
+
+    <div style="page-break-after: always;"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    window.onload = function () {
+        var thisHref = window.location.href;
+        //修改页脚网页地址
+        window.history.replaceState(null, "", "/");
+
+        window.print();
+
+        setTimeout(function () {
+            //还原当前页网页地址
+            window.history.replaceState(null, "", thisHref);
+        }, 100);
+    }
+</script>

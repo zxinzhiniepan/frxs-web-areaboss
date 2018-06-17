@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!--<title>门店累计销量报表</title>-->
+    <title>门店消费者订单</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/plugin/export-Excel/Blob.js}"></script>
+    <script th:src="@{/scripts/plugin/export-Excel/FileSaver.js}"></script>
+    <script th:src="@{/scripts/plugin/export-Excel/exportExcel.js}"></script>
+    <script th:src="@{/scripts/bussiness/operationArea/aspnetUsersSaleas.js}"></script>
+    <script type="text/javascript">
+        // var yesterdayDate = '2018-01-16';
+        // var toolbarArray = new Array();
+        //
+        //
+        // toolbarArray.push({
+        //     action: "导出",             //必填（导出 或 export）
+        //     url: "/OperationArea/DownloadAspnetUsersSaleas"   //必填  下载地址
+        // });
+        //
+        // toolbarArray.push({text: '打印', iconCls: 'icon-print', handler: function () {
+        //         var url = "/OperationArea/PrintAspnetUsersSaleas?" + pageList.grid.getSearch();
+        //         if (!!window.ActiveXObject || "ActiveXObject" in window) {
+        //             window.open(url);
+        //         }
+        //         else {
+        //             $("<div style='width: 0px; height:0px;'><iframe style='width:0px;height:0px;border:0px' src='" + url + "'/></div>").appendTo("body");
+        //         }
+        //     }
+        // });
+        //
+        // toolbarArray.push({
+        //     text: "查看指定提货日期有多条配送线路的门店列表",
+        //     iconCls: "icon-search",
+        //     handler: function () {
+        //         xsjs.window({
+        //             title: "查看指定提货日期有多条配送线路的门店列表",
+        //             owdoc: window.top,
+        //             url: "/OperationArea/StoreLine",
+        //             width: 980,
+        //             modal: true
+        //         });
+        //     }
+        // });
+
+    </script>
+</head>
+<body>
+<div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,91 @@
+
+
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加供应商角色</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/default/messager.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+<!--    <link href="/Scripts/plugin/easyui/themes/default/messager.css" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/icon.css" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/default/messager.css" rel="stylesheet" />
+    <link href="/Content/css/style.css" rel="stylesheet" />-->
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+<!--    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.easyui.js"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.form.js"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.easyui.extend.js"></script>
+    <script type="text/javascript" src="/Scripts/plugin/XSLibrary/js/XSLibrary.js"></script>
+    <script type="text/javascript" src="/Scripts/plugin/My97DatePicker/WdatePicker.js"></script>-->
+    <style type="text/css">
+        span.li_Checkbox label, span.li_Checkbox input
+        {
+            float: initial;
+            display: initial;
+            cursor: pointer;
+        }
+
+        span.li_Checkbox label
+        {
+            padding-right: 20px;
+        }
+
+        div.xs-form-table table td, div.xs-form-table table th
+        {
+            height: initial;
+        }
+
+        div.xs-forminfo li label
+        {
+            line-height: 24px;
+        }
+    </style>
+    <!--<script src="/Scripts/business/vendorRole/addRole.js"></script>-->
+    <script th:src="@{/scripts/bussiness/vendorRole/addRole.js}"></script>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">供应商管理</a></li>
+        <li><a href="javascript:">角色管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server">添加角色</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+
+    <ul class="xs-forminfo">
+        <li>
+            <b>&nbsp;</b>
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 角色名称</label>
+            <input ID="txtRoleName" th:value='${vendorRoleDto!=null?vendorRoleDto.rname:""}' placeholder="请填写角色名称" maxlength="16" />
+        </li>
+        <li id="liPower">
+            <label class="tdtitle"><b>*</b> 授权权限</label>
+            <div id="sysNav">
+            </div>
+        </li>
+    </ul>
+
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

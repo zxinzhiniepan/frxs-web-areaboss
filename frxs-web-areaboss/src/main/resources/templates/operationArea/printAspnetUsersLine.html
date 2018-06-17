@@ -1,0 +1,111 @@
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>　　</title>
+</head>
+<style>
+    *
+    {
+        margin: 0px;
+        padding: 0px;
+        font-size: 12px;
+        font-family: "宋体";
+    }
+
+    h1
+    {
+        margin-bottom: 30px;
+    }
+
+    table
+    {
+        margin: 0 auto;
+        width: 794px;
+        border-collapse: collapse;
+        border: none;
+        font-size: 12px;
+    }
+
+    table td
+    {
+        border: solid #000 1px;
+        padding: 5px 2px;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    table th
+    {
+        border: solid #000 1px;
+        padding: 5px;
+        font-weight: normal;
+        background: #CCC;
+        font-size: 12px;
+    }
+
+    h1
+    {
+        text-align: center;
+        font-size: 24px;
+        line-height: 24px;
+        font-weight: 700;
+    }
+
+    div.nr
+    {
+        margin: 0 auto;
+        width: 794px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    div.nr p
+    {
+        font-size: 12px;
+        line-height: 150%;
+    }
+</style>
+<body>
+<div th:each="item:${tradeApiResult}">
+    <h1><span th:text="'电商送货 '+${item.warehouseName}+'('+${item.lineName}+')'+' 分布表'"></span></h1>
+<table>
+    <tr>
+        <th style="width: 50px">序号</th>
+        <th style="width: 180px">门店名称</th>
+        <th style="width: 80px">门店编号</th>
+        <th style="width: 80px">提货时间</th>
+        <th>商品名称</th>
+        <th style="width: 70px">订货数量</th>
+        <th style="width: 70px">备注</th>
+    </tr>
+    <tr th:each="listItem : ${item.list}">
+        <td  th:text="${listItem.num}"></td>
+        <td  th:text="${listItem.storeName}"></td>
+        <td  th:text="${listItem.storeNo}"></td>
+        <td  th:text="${#calendars.format(listItem.deliveryTime,'yyyy-MM-dd')}"></td>
+        <td style="text-align: left"  th:text="${listItem.productName}"></td>
+        <td  th:text="${#numbers.formatInteger(listItem.qty,0)}"></td>
+        <td style="width: 60px" th:text="${listItem.remark}"></td>
+    </tr>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    window.onload = function () {
+        var thisHref = window.location.href;
+        //修改页脚网页地址
+        window.history.replaceState(null, "", "/");
+
+        window.print();
+
+        setTimeout(function () {
+            //还原当前页网页地址
+            window.history.replaceState(null, "", thisHref);
+        }, 100);
+    }
+</script>

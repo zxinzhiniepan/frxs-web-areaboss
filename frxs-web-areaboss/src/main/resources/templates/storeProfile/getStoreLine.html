@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>编辑门店配送线路</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datePicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/storeProfile/editStoreLine.js}"></script>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">门店管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server"> 编辑门店配送线路</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <ul class="xs-forminfo">
+            <li>
+                <b>&nbsp;</b>
+            </li>
+            <li class="PayMethod">
+                <input type="hidden" id="hidStoreId" name="storeId"
+                       th:value='${storeDto.storeId}'/>
+                <input type="hidden" id="hidStoreName" name="storeName"
+                       th:value='${storeDto.storeName}'/>
+                <input type="hidden" id="oldLineId"/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>配送仓库：</label>
+                <select id="ddlWarehouseID" name="warehouseId">
+                    <option value="0">--请选择仓库--</option>
+                    <option th:each="warehouseDto:${warehouseDtoList}"
+                            th:selected="${storeDto!=null&&storeDto.warehouseId==warehouseDto.warehouseId}"
+                            th:value="${warehouseDto.warehouseId}"
+                            th:text="${warehouseDto.warehouseName}"></option>
+                </select>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>配送线路：</label>
+                <select id="ddlLineID" name="lineId" >
+                    <option value="0">--请选择配送线路--</option>
+                    <option th:each="distributionLineDto:${distributionLineDtoList}"
+                            th:selected="${storeLine!=null&&storeLine.lineId==distributionLineDto.id}"
+                            th:value="${distributionLineDto.id}"
+                            th:text="${distributionLineDto.lineName}"></option>
+                </select>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>线路顺序：</label>
+                <input type="text" id="txtLineSort" name="lineSort" class="txt easyui-numberbox" style="width:80px; margin-top:-2px" data-options="min:1,max:10000,precision:0,required:true" maxlength="20"
+                       th:value="${storeLine!=null?(storeLine.lineSort!=null?storeLine.lineSort:'1'):'1'}"/>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>
+

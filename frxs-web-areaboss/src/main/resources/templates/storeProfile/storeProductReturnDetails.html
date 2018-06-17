@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>售后详情</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/content/js/layout.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.easyui.extend.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.form.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/bussiness/storeProfile/storeProductReturnDetails.js}"></script>
+    <style type="text/css">
+        .webuploader-pick {
+            width: 80px;
+            height: 22px;
+            border: 1px solid #46b6de;
+            border-radius: 3px;
+            background: #46b6de;
+            color: #fff;
+            text-align: center;
+            line-height: 22px;
+            float: left;
+        }
+
+        .upload-btn input, .upload-btn label {
+            display: none;
+        }
+
+        .uploadpic img {
+            max-width: 125px;
+            max-height: 140px;
+            display: block;
+            padding-left: 80px;
+            padding-top: 10px;
+        }
+
+        .upload-progress {
+            display: none;
+        }
+
+        .product-img-box-btn {
+            margin-right: 10px;
+            color: blue;
+        }
+
+        #GgtDetails img {
+            max-width: 600px;
+            max-height: 200px;
+        }
+
+        .validatebox-invalid {
+            border-width: 1px;
+        }
+
+        .textbox {
+            border-radius: 0px;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+        }
+
+        .xs-form-table select.pagination-page-list {
+            min-width: 40px
+        }
+
+        .xs-form-table input.pagination-num {
+            width: 40px
+        }
+
+        fieldset {
+            margin: 0px 0px 5px 0px;
+            border: 1px solid #95B8E7;
+            overflow: hidden;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">售后管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server">售后详情</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <div id="formTable">
+            <div title="售后详情" style="padding: 0px">
+                <fieldset>
+                    <legend>售后信息</legend>
+                    <ul class="xs-forminfo" id="productInfo">
+                        <li>
+                            &nbsp;
+                        </li>
+
+                        <li>
+                            <label class="tdtitle">售后单号</label>
+                            <label th:text="${entity !=null?entity.storeRefundNo:''}"></label>
+                            <!--
+                            <input type="hidden" id="txtStoreAfterSaleID" name="storeAfterSaleID" th:attr="value=${entity !=null?entity.storeAfterSaleID:''}" />-->
+                            <input type="hidden" id="txtStoreAfterSaleNO" name="storeRefundNo" th:attr="value=${entity !=null?entity.storeRefundNo:''}"/>
+                            <input type="hidden" id="txtOrderID" name="orderNo" th:attr="value=${entity !=null?entity.orderNo:''}"/>
+                        </li>
+                        <li>
+                            <label class="tdtitle">申请时间</label>
+                            <label th:text="${#dates.format(entity.tmAfterSale,  'yyyy/MM/dd HH:mm:ss')}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">状态</label>
+                            <label th:text="${entity !=null?entity.statusName:''}"></label>
+                            <input type="hidden" id="txtStatus" name="status" th:attr="value=${entity !=null?entity.status:''}"/>
+                        </li>
+                        <li>
+                            <label class="tdtitle">仓库</label>
+                            <label th:text="${entity !=null?entity.warehouseName:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">门店</label>
+                            <label th:text="${entity !=null?entity.storeCode:''}"></label>
+                            <label th:text="${entity !=null?entity.storeName:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">商品</label>
+                            <label th:text="${entity !=null?entity.sku:''}"></label>
+                            <label th:text="${entity !=null?entity.productName:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">供应商</label>
+                            <label th:text="${entity !=null?entity.vendorCode:''}"></label>
+                            <label th:text="${entity !=null?entity.vendorName:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">原始订单</label>
+                            <label th:text="${entity !=null?entity.orderNo:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">订单订货数量</label>
+                            <label th:text="${entity !=null?entity.shipmentQty:''}">></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">精品日期</label>
+                            <label th:text="${#dates.format(entity.tmActivity, 'yyyy-MM-dd')}"></label>
+                        </li>
+
+                        <!--
+                            <li>
+                                <label class="tdtitle">退货数量</label>
+                                <label th:text="${entity !=null?entity.returnGoodsQty:''}"></label>
+                            </li>
+                            <li>
+                                <label class="tdtitle">售后图片</label>
+                                <label>
+                                    <span th:if="${entity.afterSalePicture1Url}"><img id="afterSalePicture1Url"  th:src="@{${entity.afterSalePicture1Url}}" style="width:60px;height:60px" th:onclick="'XSLibray.pigshow(\''+${entity.afterSalePicture1Url}+'\')'" /></span>
+                                    <span th:if="${entity.afterSalePicture2Url}"><img id="afterSalePicture2Url" th:src="@{${entity.afterSalePicture2Url}}" style="width:60px;height:60px" th:onclick="'XSLibray.pigshow(\''+${entity.afterSalePicture2Url}+'\')'" /></span>
+                                    <span th:if="${entity.afterSalePicture3Url}"><img id="afterSalePicture3Url" th:src="@{${entity.afterSalePicture3Url}}" style="width:60px;height:60px" th:onclick="'XSLibray.pigshow(\''+${entity.afterSalePicture3Url}+'\')'" /></span>               </label>
+                            </li>
+                             <li>
+                                <label class="tdtitle">售后原因</label>
+                                <label th:text="${entity !=null?entity.afterSaleReason:''}"></label>
+                            </li>
+                            <li>
+                                <label class="tdtitle">售后时效</label>
+                                 <label th:text="${entity !=null?entity.afterSalePeriod:''}"></label>
+                                <label>48 小时</label>
+                            </li>
+                            -->
+                        <li>
+                            <label class="tdtitle">每份供应商货款</label>
+                            <label th:text="${entity !=null?entity.singleVendorAmt.amount:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">每份平台服务费</label>
+                            <label th:text="${entity !=null?entity.singleServicesFeeAmt.amount:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">每份门店提成</label>
+                            <label th:text="${entity !=null?entity.singlesStoreAmt.amount:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">商品售价</label>
+                            <label th:text="${entity !=null?entity.productPrice:''}"></label>
+                        </li>
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <legend>审核信息</legend>
+                    <ul id="nonFirstcheck_reject" class="xs-forminfo" style="display:none">
+                        <li>
+                            <label class="tdtitle"> 售后数量</label>
+                            <label th:text="${entity !=null?entity.firstCheckQty:''}"></label>
+                            <label th:text="${entity !=null?entity.firstCheckRemark:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">售后类型</label>
+                            <label th:text="${entity !=null?entity.firstCheckReasonTypeText:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">供应商货款</label>
+                            <label th:text="${entity !=null?entity.firstCheckVendorAmt.amount:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">平台服务费</label>
+                            <label th:text="${entity !=null?entity.firstCheckServicesFeeAmt.amount:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">门店提成金额</label>
+                            <label th:text="${entity !=null?entity.firstCheckStoreAmt.amount:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">合计</label>
+                            <label th:text="${entity !=null?entity.firstCheckSumAmt.amount:''}"></label>
+                        </li>
+                        <li>
+                            <label class="tdtitle">初核留言</label>
+                            <label th:text="${entity !=null?entity.firstCheckDesc:''}"></label>
+                        </li>
+                    </ul>
+
+                    <ul id="firstcheck_reject" class="xs-forminfo" style="display:none">
+                        <li >
+                            <label class="tdtitle">初核留言</label>
+                            <label th:text="${entity !=null?entity.firstCheckDesc:''}"></label>
+                        </li>
+                    </ul>
+                    <ul id="auditDesc" class="xs-forminfo" style="display:none">
+                        <li >
+                            <label class="tdtitle">复核留言</label>
+                            <label th:text="${entity !=null?entity.auditDesc:''}"></label>
+                        </li>
+                    </ul>
+
+                </fieldset>
+            </div>
+
+            <div title="跟踪" style="padding: 0px;">
+                <ul class="xs-forminfo" id="productImageInfo">
+                    <li>
+                        &nbsp;
+                    </li>
+
+                    <li>
+                        <label>售后划付单号：</label>
+                        <label id="servicesFeeTransferNO"></label>
+
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;售后划付状态：</label>
+                        <label id="servicesFeeTransferStatus"></label>
+                    </li>
+                    <li>
+
+                    </li>
+                    <li>
+                        <label>货款划付单号:</label>
+                        <label id="payTransferNO"></label>
+
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;货款划付状态：</label>
+                        <label id="payTransferStatus"></label>
+                    </li>
+
+                    <!--<li>-->
+                        <!--<label>门店提成划付单号：</label>-->
+                        <!--<label id="commissionTransferNO"></label>-->
+
+                        <!--<label>&nbsp;&nbsp;&nbsp;&nbsp;门店提成划付状态：</label>-->
+                        <!--<label id="commissionTransferStatus"></label>-->
+                    <!--</li>-->
+
+
+                </ul>
+                <div style="height: 100%;" id="Track">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

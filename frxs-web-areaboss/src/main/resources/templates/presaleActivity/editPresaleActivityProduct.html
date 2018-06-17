@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>添加活动</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/bussiness/presaleActivity/editPresaleActivityProduct.js}"></script>
+    <style type="text/css">
+        legend
+        {
+            color: #416AB7; font-weight: bold; margin-left:10px
+        }
+
+        fieldset
+        {
+            margin: 0px 0px 5px 0px; border: 1px solid #95B8E7; overflow:hidden;padding-top: 10px;
+        }
+
+        #tableRegion td
+        {
+            padding-right: 36px;
+        }
+
+        #tableRegion label
+        {
+            margin-right: 20px;
+        }
+
+        .tdtitle {text-align:right;
+        }
+        .width {width:100px;
+        }
+        label b {margin-right:5px;
+        }
+
+        .datagrid-btable td[field="PresaleQuantity"], .datagrid-btable td[field="SupplyPrice"]
+        ,.datagrid-btable td[field="PresalePrice"]
+        ,.datagrid-btable td[field="CompanyCommission"]
+        ,.datagrid-btable td[field="SalePrice"]
+        ,.datagrid-btable td[field="MarketPrice"]
+        {
+            color: #0066CC;
+        }
+
+        .divBottomButton{
+            margin: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">活动管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server">编辑活动</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <fieldset>
+            <legend>选择活动商品</legend>
+            <input id="PresaleActivityID" name="activityId" th:attr="value=${activityDto.activityId}" type="hidden"/>
+            <ul class="xs-forminfo">
+                <li id="liSelectProduct">
+                    <label class="tdtitle">活动商品<b>*</b></label>
+                    <a id="btnSelectProduct" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" runat="server">选择活动商品</a>
+                </li>
+                <li style="padding-right: 12px;">
+                    <script type="text/javascript">
+
+                    </script>
+                    <div id="divProduct"></div>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

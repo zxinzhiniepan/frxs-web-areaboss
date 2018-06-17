@@ -1,0 +1,106 @@
+
+
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加供应商帐号</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/default/messager.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/vendorAccount/editVendorAccount.js}"></script>
+<!--    <link href="/Scripts/plugin/easyui/themes/default/messager.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/icon.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/default/easyui.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/default/messager.css?v=20180112001" rel="stylesheet" />
+    <link href="/Content/css/style.css?v=20180112001" rel="stylesheet" />
+
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.min.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.easyui.min.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.form.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/locale/easyui-lang-zh_CN.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.easyui.extend.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/XSLibrary/js/XSLibrary.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/My97DatePicker/WdatePicker.js?v=20180112001"></script>
+    <script src="/Scripts/business/vendorAccount/editVendorAccount.js?version=20180112001"></script>-->
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">供应商管理</a></li>
+        <li><a href="javascript:">帐号管理</a></li>
+        <li><a href="javascript:">添加帐号</a></li>
+    </ul>
+</div>
+<div  class="xs-form-main">
+    <ul class="xs-forminfo">
+        <li>
+            <b>&nbsp;</b>
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 帐号</label>
+            <input id="txtRoleName" name="AccountNo" th:value='${vendorAccountDto!=null?vendorAccountDto.accountNo:""}' placeholder="请填写帐号"  class="easyui-validatebox" data-options="required:true,validType:['chineseOrNumbOr_Lett','minLenFormat[2]'],tipPosition:'bottom'" />
+            <span>注：帐号不能是手机号码，在供应商端可用帐号和绑定的手机号码登录。</span>
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 手机号码</label>
+            <input id="txtAccountMoile" name="AccountMoile" placeholder="请填写手机号码" class="easyui-validatebox" data-options="required:true,validType:['mobileFormat'],tipPosition:'bottom'" />
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 所属供应商</label>
+            <input id="txtVendorName" th:value='${vendorAccountDto!=null?vendorAccountDto.vendorName:""}' readonly="readonly"/>
+            <input id="hidVendorID" name="VendorID" type="hidden" value="0" />
+            <a id="btnSelectVendor" class="easyui-linkbutton easyui-validatebox" data-options="iconCls:'icon-ok'">选择供应商</a>
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 角色</label>
+            <select id="ddlRID" name="RID">
+                <option value="">--请选择角色--</option>
+                <option value="5959754d-3845-40f4-895c-6d2fc15971b9" >供应员</option>
+                <option value="f5ec5e16-67ed-4705-a75d-04c7a2bbd65b" >122</option>
+                <option value="1d1f3dc3-05ce-4efb-9929-58c66167586c" >5</option>
+                <option value="6ba41173-d697-4f45-b90f-d0e9bbcbb673" >4</option>
+                <option value="5b69ec26-8dd9-43db-b18d-1074b276d911" >3</option>
+                <option value="5352dd44-e8f2-49bd-964a-0a77a748544d" >2</option>
+                <option value="9f4f18fc-a811-4567-82a2-28de13a92312" >1</option>
+                <option value="efd2b784-f090-47b0-b8e8-4e2e9a552c98" >基督教开发</option>
+                <option value="ce7910da-45ab-4b49-a48b-c7255399613d" >测试12</option>
+                <option value="60aea9bd-4424-4e79-a813-c3c9c7897b2c" >的</option>
+                <option value="3ae76582-8e8a-480c-b6b5-1e6815f22fd4" >3333333333333333</option>
+                <option value="d677196c-f7b4-4834-ad38-1073d4b82328" >测试1</option>
+                <option value="380751c5-8983-48c3-92a5-bd496759cff0" >测试</option>
+                <option value="64bd7b9a-667e-4541-af3f-b0abaa1aeb3b" >超级</option>
+
+            </select>
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 姓名</label>
+            <input id="txtAccountName" name="AccountName" placeholder="请填写姓名" class="easyui-validatebox" maxlength="8" data-options="required:true,validType:['chinese','minLenFormat[2]'],tipPosition:'bottom'" />
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 密码</label>
+            <input id="txtPassword1" name="Password" type="password" placeholder="请填写6位以上的密码" maxlength="16" class="easyui-validatebox" data-options="required:true,validType:['minLenFormat[6]'],tipPosition:'bottom'" />
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 确认密码</label>
+            <input id="txtPassword2" name="Password2" type="password" placeholder="请填写确认密码" maxlength="16" class="easyui-validatebox" data-options="required:true,validType:['minLenFormat[6]'],tipPosition:'bottom'" />
+        </li>
+    </ul>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

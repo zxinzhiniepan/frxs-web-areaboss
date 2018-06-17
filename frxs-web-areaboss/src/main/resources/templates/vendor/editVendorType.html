@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>编辑供应商分类</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datePicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/plugin/webuploader/webuploader.min.js}"></script>
+    <script th:src="@{/scripts/bussiness/vendor/editVendorType.js}"></script>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">供应商管理</a></li>
+        <li><a href="javascript:">供应商分类管理</a></li>
+        <li><a href="javascript:">编辑供应商</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <ul class="xs-forminfo">
+        <li>
+            <b>&nbsp;</b>
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b>供应商分类名称：</label>
+            <input id="txtVendorTypeName" maxlength="10" name="vendorTypeName"
+                   th:value ='${vendorTypeName}'/>
+        </li>
+    </ul>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

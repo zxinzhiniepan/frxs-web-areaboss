@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>添加供应商角色</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/content/js/layout.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.easyui.extend.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.form.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/bussiness/vendorFine/addFine.js}"></script>
+</head>
+<body>
+
+<div class="easyui-tabs" style="width: 700px; height:500px">
+
+
+    <div title="编辑供应商罚款" id="tabVendorFine">
+        <input id="hidVendorFineID" name="vendorPenaltyNo" type="hidden" th:attr="value=${dto !=null?dto.vendorPenaltyNo:''}" />
+        <input id="hidFineStatusCode" name="status" type="hidden" th:attr="value=${dto !=null?dto.status:''}" />
+        <input id="hidAuditDesc" name="auditDesc" type="hidden" value="" th:attr="value=${dto !=null?dto.auditDesc:''}" />
+        <input id="hidAuditingAmount" name="AuditingAmount" type="hidden" th:attr="value=${dto !=null?dto.auditDesc:''}" />
+        <input id="hidAuditTime" name="tmAudit" type="hidden" th:attr="value=${dto !=null?dto.tmAudit:''}"/>
+        <input id="hidAuditUserID" name="auditUserId" type="hidden" th:attr="value=${dto !=null?dto.auditUserId:''}"/>
+        <input id="hidAuditUserName" name="auditUserName" type="hidden"  th:attr="value=${dto !=null?dto.auditUserName:''}"/>
+        <input id="hidCreateTime" name="tmCreate" type="hidden" th:attr="value=${dto !=null?dto.tmCreate:''}"/>
+        <input id="hidCreateUserID" name="createUserId" type="hidden" th:attr="value=${dto !=null?dto.createUserId:''}"/>
+        <input id="hidCreateUserName" name="createUserName" type="hidden" th:attr="value=${dto !=null?dto.createUserName:''}"/>
+        <input id="hidFirstCheckDesc" name="firstCheckDesc" type="hidden" th:attr="value=${dto !=null?dto.firstCheckDesc:''}"/>
+        <input id="hidFirstCheckerID" name="firstCheckerId" type="hidden" th:attr="value=${dto !=null?dto.firstCheckerId:''}"/>
+        <input id="hidFirstCheckerName" name="firstCheckerName" type="hidden" th:attr="value=${dto !=null?dto.firstCheckerName:''}"/>
+        <input id="hidFirstCheckTime" name="tmFirstCheck" type="hidden" th:attr="value=${dto !=null?dto.tmFirstCheck:''}"/>
+        <input id="hidModifyTime" name="tmSmp" type="hidden"  th:attr="value=${dto !=null?dto.tmSmp:''}"/>
+        <input id="hidModifyUserID" name="modifyUserId" type="hidden" th:attr="value=${dto !=null?dto.modifyUserId:''}"/>
+        <input id="hidModifyUserName" name="modifyUserName" type="hidden"  th:attr="value=${dto !=null?dto.modifyUserName:''}"/>
+        <input id="hidOpAreaID" name="areaId" type="hidden"  th:attr="value=${dto !=null?dto.areaId:''}"/>
+        <input id="hidOpAreaName" name="areaName" type="hidden"  th:attr="value=${dto !=null?dto.areaName:''}"/>
+        <input id="hidActivityTime" name="tmActivity" type="hidden" th:attr="value=${#calendars.format(dto.penaltyDate,'yyyy-MM-dd HH:mm:ss')}"/>
+        <input id="hidPresaleActivityID" name="activityId" type="hidden" th:attr="value=${dto !=null?dto.activityId:''}"/>
+
+        <div class="deposit">
+
+            <table width="100%" border="0" class="tx" id ="vendorFine">
+                <tr>
+                    <th>单据号：</th>
+                    <td>
+                        <input  name="vendorPenaltyNo"  id="vendorPenaltyNo" th:attr="value=${dto !=null?dto.vendorPenaltyNo:''}" readonly='readonly'/></td>
+                    <th><span class="red">*</span>单据日期：</th>
+                    <td>
+                        <input id="txtFineStatusDate"  name="penaltyDate"  th:attr="value=${#calendars.format(dto.penaltyDate,'yyyy-MM-dd')}"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"  /></td>
+                    <th>状态：</th>
+                    <td>
+                        <input id="txtStatus" name="status" type="hidden"  th:attr="value=${dto !=null?dto.status:''}"/>
+                        <input   name="statusName" id="statusName" th:attr="value=${dto !=null?dto.statusName:''}" readonly='readonly'/></td>
+
+                <tr>
+                    <th>供应商：</th>
+                    <td colspan="5">
+                        <input type="text" id="txtVendordcode"  name="vendorCode"  th:attr="value=${dto !=null?dto.vendorCode:''}"    readonly='readonly' style="width:80px; margin-right:0px" />
+                        <a id="btnSelectVendor" class="easyui-linkbutton  easyui-validatebox" >...</a>
+                        <input  name="vendorName"  type="text" th:attr="value=${dto !=null?dto.vendorName:''}"   id="txtVendorName" readonly='readonly' style="width:432px; margin-left:0px"/>
+                        <input id="hidVendorID" name="vendorId" type="hidden" th:attr="value=${dto !=null?dto.vendorId:''}" />
+                    </td>
+
+                </tr>
+                </tr>
+                <tr>
+                    <th>商品：</th>
+                    <td colspan="5">
+                        <input type="text" id="s" name="sku" th:attr="value=${dto !=null?dto.sku:''}"  style="width:80px; margin-right:0px"  readonly='readonly' />
+                        <a id="btnSelectProduct"  class="easyui-linkbutton easyui-validatebox" >...</a>
+                        <input type="text" id="txtProductName" name="productName"   readonly='readonly' style="width:432px; margin-left:0px" th:attr="value=${dto !=null?dto.productName:''}"/>
+                        <input id="hidPID"  name="productId" type="hidden" th:attr="value=${dto !=null?dto.productId:''}"/>
+                        <input id="hidProductVendorID"  type="hidden" th:attr="value=${dto !=null?dto.vendorId:''}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="red">*</span>供应商违约金(元)：</th>
+                    <td>
+                        <input id="txtFineAmount" name="penaltyAmt" th:attr="value=${dto !=null?dto.penaltyAmt:''}"  type="text" class="easyui-numberbox" data-options="min:0,precision:2,max:99999.99" />
+                        <input id="hidFineTypeCode"  type="hidden" th:attr="value=${dto !=null?dto.penaltyType:''}" />
+                    </td>
+                    <th>罚款类型：</th>
+                    <td colspan="3">
+                        <select id="ddlFineTypeCode" name="penaltyType" class="form-control" style="width: 350px" data-options="editable:false" >
+                            <option th:each="type: ${list}" th:text="${type.remark}" th:value="${type.dictValue}" ></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 95px">罚款原因：</th>
+                    <td colspan="5">
+                        <textarea id="txtFineReason" style="width: 553px" maxlength="100" name="penaltyReason" > [[${dto.penaltyReason}]] </textarea>(限100个字符)</td>
+                </tr>
+
+
+                <tr>
+                    <th>总金额：</th>
+                    <td>
+                        <input  id="txtSumAmount" name="totalAmt" th:attr="value=${dto !=null?dto.totalAmt.amount:''}" type="text"  readonly='readonly' class="easyui-numberbox"  data-options="precision:2" /></td>
+                    <th>审核中金额：</th>
+                    <td>
+                        <input id="txtAuditingAmount" name="auditingAmt" th:attr="value=${dto !=null?dto.auditingAmt.amount:''}" type="text"  readonly='readonly' class="easyui-numberbox"  data-options="precision:2" /></td>
+                    <th>可提现金额：</th>
+                    <td>
+                        <input id="txtRemainingSum" name="canWithdrawAmt" th:attr="value=${dto !=null?dto.canWithdrawAmt.amount:''}" type="text"  readonly='readonly' class="easyui-numberbox"  data-options="precision:2" /></td>
+                </tr>
+                <tr>
+                    <th>收款人帐户：</th>
+                    <td colspan="5">
+                        <input type="text" id="txtBankAccountName" name="bankAccountName"  th:attr="value=${dto !=null?dto.bankAccountName:''}"  readonly='readonly' style="width:300px;"/></td>
+                </tr>
+                <tr>
+                    <th>开户行行号：</th>
+                    <td colspan="5">
+                        <input type="text" id="txtBankNO" name="bankNo" th:attr="value=${dto !=null?dto.bankNo:''}"   readonly='readonly' style="width:300px;"/></td>
+                </tr>
+
+                <tr>
+                    <th>开户银行：</th>
+                    <td colspan="5">
+                        <input type="text"  id="txtBankName"  name="bankName"  th:attr="value=${dto !=null?dto.bankName:''}"  readonly='readonly' style="width:300px;"/></td>
+                </tr>
+                <tr>
+                    <th>银行账号：</th>
+                    <td colspan="5">
+                        <input type="text"  id="txtBankAccountNO"  name="bankAccountNo"   th:attr="value=${dto !=null?dto.bankAccountNo:''}" readonly='readonly' style="width:300px;"/></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保 存</a>
+
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+<script>
+    var actionType = 1; // actyionType 0新增、1编辑
+
+    $(function () {
+        //添中readonly
+
+        isReject();
+    });
+
+    function isReject() {
+        $("#radioAuditY").click(function () {
+            if ($("#radioAuditY").is(':checked')) {
+                $("#reject").hide();
+            }
+            if ($("#radioAuditN").is(':checked')) {
+                $("#reject").show();
+            }
+        })
+        $("#radioAuditN").click(function () {
+            if ($("#radioAuditY").is(':checked')) {
+                $("#reject").hide();
+            }
+            if ($("#radioAuditN").is(':checked')) {
+                $("#reject").show();
+            }
+        })
+
+    }
+</script>
+
+</body>
+</html>

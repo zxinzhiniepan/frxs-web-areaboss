@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>供应商商品详情</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/productImage.css}" rel="stylesheet" />
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datePicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/vendor/vendorProductDetails.js}"></script>
+
+    <style type="text/css">
+        .upload-imgurl {
+            border: none;
+        }
+
+        .upload-box {
+            float: left;
+        }
+
+        .webuploader-pick {
+            width: 80px;
+            height: 22px;
+            border: 1px solid #46b6de;
+            border-radius: 3px;
+            background: #46b6de;
+            color: #fff;
+            text-align: center;
+            line-height: 22px;
+            float: left;
+        }
+
+        .upload-btn input, .upload-btn label {
+            display: none;
+        }
+
+        .uploadpic img {
+            max-width: 125px;
+            max-height: 140px;
+            display: block;
+            padding-left: 80px;
+            padding-top: 10px;
+        }
+
+        .upload-progress {
+            display: none;
+        }
+
+        .product-img-box-btn {
+            margin-right: 10px;
+            color: blue;
+        }
+
+        #GgtDetails img {
+            max-width: 600px;
+            max-height: 200px;
+        }
+
+        .validatebox-invalid {
+            border-width: 1px;
+        }
+
+        .textbox {
+            border-radius: 0px;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+        }
+        #productMainImage img { border:1px solid #ddd; margin-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <div id="formTable">
+            <div  style="padding: 10px">
+                <ul class="xs-forminfo" id="productInfo">
+                    <li>
+                        <label class="tdtitle">供应商：</label>
+                        <input id = "vendorProductDataId" type="hidden" th:attr="value=${rts !=null?rts.vendorProductDataId:''}">
+                        <label  id="lblVendorName" th:text="${rts !=null?rts.vendorName:''}"></label>
+                    </li>
+                    <li>
+                        <label class="tdtitle">商品名称：</label>
+                        <label  id="lblProductName" th:text="${rts !=null?rts.vendorProductName:''}"></label>
+                    </li>
+                    <li>
+                        <label class="tdtitle">商品详情：<b></b></label>
+                        <textarea id="txtShareDescription" name="ShareDescription" class="easyui-validatebox inputTextWidth360" style="height: 150px;"
+                                  readonly="readonly" th:text="${rts !=null?rts.vendorProductDesc:''}"></textarea>
+                    </li>
+                    <li>
+                        <label class="tdtitle">审核状态：</label>
+                        <label  id="lblAudit">
+                            <span th:if="${rts.auditStatus eq 'PASS'}">通过</span>
+                            <span th:if="${rts.auditStatus eq 'REJECT'}">驳回</span>
+                            <span th:if="${rts.auditStatus eq 'PENDING'}">待审核</span>
+                            <span th:if="${rts.auditStatus eq 'DRAFT'}">草稿</span>
+                        </label>
+                    </li>
+                    <li>&nbsp;</li>
+                    <li>
+                        <label class="tdtitle">图片下载: </label>
+                        <div>
+                            <form id="downloadImgForm" method="post">
+                            <a id="btnDownloadImage">下载图片</a>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="tdtitle"  style=" float:left; ">商品主图: </label>
+                        <div id="ProductMainImage" style="width: 360px;  float:left" >
+                            <span th:each="rtb : ${rtb}">
+                                <img style="height: 100px;width: 100px;border:1px solid #ccc;" th:src="@{${rtb.originalImgUrl}}"  th:attr="imageUrlOrg=@{${rtb.originalImgUrl}}" th:onclick="'pigshow(\''+${rtb.originalImgUrl}+'\')'" />
+                            </span>
+
+                            <!--<img src="http://itestimage.frxs.cn/Product/2018/1/16/32c47deb-7e87-4a70-a0d5-6f694aa6aeb5_60x60.jpg" imageUrlOrg="http://itestimage.frxs.cn/Product/2018/1/16/32c47deb-7e87-4a70-a0d5-6f694aa6aeb5_640x1136.jpg" onclick="pigshow('http://itestimage.frxs.cn/Product/2018/1/16/32c47deb-7e87-4a70-a0d5-6f694aa6aeb5_640x1136.jpg')" />
+                            <img src="http://itestimage.frxs.cn/Product/2018/1/16/d58c5f0e-7ee8-4f4f-a801-9389d028d98b_60x60.jpg" imageUrlOrg="http://itestimage.frxs.cn/Product/2018/1/16/d58c5f0e-7ee8-4f4f-a801-9389d028d98b_640x1136.jpg" onclick="pigshow('http://itestimage.frxs.cn/Product/2018/1/16/d58c5f0e-7ee8-4f4f-a801-9389d028d98b_640x1136.jpg')" />
+                            <img src="http://itestimage.frxs.cn/Product/2018/1/16/c1020ed6-a75f-45cc-9a34-8fbc62883f5b_60x60.jpg" imageUrlOrg="http://itestimage.frxs.cn/Product/2018/1/16/c1020ed6-a75f-45cc-9a34-8fbc62883f5b_640x480.jpg" onclick="pigshow('http://itestimage.frxs.cn/Product/2018/1/16/c1020ed6-a75f-45cc-9a34-8fbc62883f5b_640x480.jpg')" />
+                            <img src="http://itestimage.frxs.cn/Product/2018/1/16/31175ab2-fa3f-4d3d-bcf5-45f923d3768c_60x60.jpg" imageUrlOrg="http://itestimage.frxs.cn/Product/2018/1/16/31175ab2-fa3f-4d3d-bcf5-45f923d3768c_640x1136.jpg" onclick="pigshow('http://itestimage.frxs.cn/Product/2018/1/16/31175ab2-fa3f-4d3d-bcf5-45f923d3768c_640x1136.jpg')" />
+                            <img src="http://itestimage.frxs.cn/Product/2018/1/16/8814d711-d3eb-4271-95b4-2889ff5d9dd3_60x60.jpg" imageUrlOrg="http://itestimage.frxs.cn/Product/2018/1/16/8814d711-d3eb-4271-95b4-2889ff5d9dd3_640x480.jpg" onclick="pigshow('http://itestimage.frxs.cn/Product/2018/1/16/8814d711-d3eb-4271-95b4-2889ff5d9dd3_640x480.jpg')" />
+                            <img src="http://itestimage.frxs.cn/Product/2018/1/16/67dbe437-5c38-4360-9eed-77e735c8e346_60x60.jpg" imageUrlOrg="http://itestimage.frxs.cn/Product/2018/1/16/67dbe437-5c38-4360-9eed-77e735c8e346_640x480.jpg" onclick="pigshow('http://itestimage.frxs.cn/Product/2018/1/16/67dbe437-5c38-4360-9eed-77e735c8e346_640x480.jpg')" />
+                            <img src="http://itestimage.frxs.cn/Product/2018/1/16/3a2474f7-4508-4534-9f1f-95640c99592c_60x60.jpg" imageUrlOrg="http://itestimage.frxs.cn/Product/2018/1/16/3a2474f7-4508-4534-9f1f-95640c99592c_640x480.jpg" onclick="pigshow('http://itestimage.frxs.cn/Product/2018/1/16/3a2474f7-4508-4534-9f1f-95640c99592c_640x480.jpg')" />-->
+                        </div>
+                    </li>
+                    <li>&nbsp;
+                    </li>
+                    <li>
+                        <label class="tdtitle">商品型号：</label>
+                        <label id="lblMutValues">
+                            <span th:if="${rts.specType eq 'SINGLE'}">单规格</span>
+                            <span th:if="${rts.specType eq 'MULTI'}">多规格</span>
+                        </label>
+                    </li>
+                    <li></li>
+                    <li>
+                        <ul class="xs-forminfo" style="margin-left:80px; " th:each="rta : ${rta}">
+                            <li >规格：<span th:text="${rta !=null?rta.vendorProductAttr:''}"></span></li>
+                            <li>数量： <span th:text="${rta !=null?rta.vendorProductQty:''}"></span></li>
+                            <li>价格： <span th:text="${rta !=null?rta.vendorProductAmt:''}"></span></li>
+                            <li style="width:400px; border-bottom:1px #ddd solid"></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label class="tdtitle" style="margin-right:0px">审核通过/驳回理由：<b></b></label>
+                        <textarea id="txtAuditReason" name="auditRession" class="easyui-validatebox inputTextWidth360" style="height: 150px;"
+                                  data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="100" th:text="${rts !=null?rts.auditRession:''}"></textarea>
+                    </li>
+                    <li>
+                        <a id="btnAudit" class="easyui-linkbutton" data-options="iconCls:'icon-save'"  onclick ="saveInfo('PASS')" >审核通过</a>
+                        <a id="btnReject" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick ="saveInfo('REJECT')" >驳回审核</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

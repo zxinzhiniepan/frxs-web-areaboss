@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>门店管理</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/XSLibrary.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/storeProfile/storeList.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.easyui.extend.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.form.js}"></script>
+    <script th:src="@{/scripts/plugin/export-Excel/Blob.js}"></script>
+    <script th:src="@{/scripts/plugin/export-Excel/FileSaver.js}"></script>
+    <script th:src="@{/scripts/plugin/export-Excel/exportExcel.js}"></script>
+    <script th:src="@{/scripts/common/jquery.qrcode.min.js}"></script>
+    <style>
+        .list-search-item .textbox-text {
+            border: 0px solid #A9A9A9;
+            border-radius: 0px;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px
+        }
+
+        .list-search-item .numberbox {
+            border: 1px solid #A9A9A9;
+            border-radius: 0px;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+            padding: 2px 4px
+        }
+
+        .list-search-item input.textbox-text[type='text'] {
+            height: 16px;
+            line-height: 16px
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" id="qrcode" />
+<a id="download" download="qrcode.jpg" style="display:none"></a>
+<div>
+</div>
+</body>
+</html>

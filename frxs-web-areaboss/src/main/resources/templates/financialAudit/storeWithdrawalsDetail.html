@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>门店提现详情</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/bussiness/financialAudit/storeWithdrawalsDetail.js}"></script>
+    <style type="text/css">
+        .xs-forminfo1 li:nth-child(odd)
+        {
+            float: left;
+            width: 400px;
+            height: 35px;
+            padding-left: 35px;
+            line-height: 35px;
+        }
+        .xs-forminfo1 li:nth-child(even)
+        {
+            float: left;
+            width: 60%;
+            height: 35px;
+            padding-left: 35px;
+            line-height: 35px;
+        }
+
+        .xs-forminfo1 li label
+        {
+            width: 110px;
+            display: block;
+            float: left;
+            height: 35px;
+            line-height: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">财务管理</a></li>
+        <li><a href="javascript:" id="navthis1" runat="server">门店提现</a></li>
+        <li><a href="javascript:" id="navthis" runat="server">提现详细</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <div id="formTable">
+            <div title="提现详情" style="padding: 10px">
+                <ul class="xs-forminfo1" id="withdrawalInfo">
+                    <li>
+                        <label class="tdtitle">提现单号：</label>
+                        <input  id="storeWithdrawalsId" class="easyui-validatebox" th:attr="value=${dto !=null?dto.storeWithdrawNo:''}" maxlength="30" type="text" disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">申请时间：</label>
+                        <input class="easyui-validatebox" th:attr="value=${#dates.format(dto.tmWithdraw, 'yyyy/MM/dd HH:mm:ss')}"  maxlength="30" type="text"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">状态：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.statusName:''}" maxlength="30" type="text"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">门店编号：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.storeCode:''}"  maxlength="30" type="text"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">门店名称：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.storeName:''}"  maxlength="30" type="text"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">收款人帐户：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.bankAccountName:''}"  maxlength="30" type="text" readonly="readonly" disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">开户行行号：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.bankNo:''}"  maxlength="30" type="text" readonly="readonly"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">开户银行：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.bankName:''}"  maxlength="30" type="text" readonly="readonly"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">银行帐号：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.bankAccountNo:''}"  maxlength="30" type="text" readonly="readonly"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">本次申请提现金额：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.withdrawAmt.amount:''}"  maxlength="30" type="text"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">代缴税金：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.taxAmt.amount:''}"  maxlength="30" type="text"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">划付金额：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.storeAmt.amount:''}"  maxlength="30" type="text"  disabled="disabled"  />
+                    </li>
+                    <li>
+                        <label class="tdtitle">总金额：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.totalAmt.amount:''}"  maxlength="30" type="text"  disabled="disabled"/>
+                    </li>
+                    <li>
+                        <label class="tdtitle">审核中金额：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.auditingAmt.amount:''}"  maxlength="30" type="text"  disabled="disabled" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">可提现金额：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.canWithdrawAmt.amount:''}"  maxlength="30" type="text"  disabled="disabled" />
+                    </li>
+                </ul>
+                <div style="clear: both;"></div>
+                <ul class="xs-forminfo" style="padding:30px 140px" >
+                    <div th:switch="${dto !=null?dto.status:''}">
+                        <p th:case="'STORE_APP'">
+                            <li>
+                                <label class="tdtitle">&nbsp;</label>
+                                <input name="radiobutton" type="radio" checked="checked" value="radiobutton" id="radio1"/><label for="radio1">审核通过</label>
+                                <input name="radiobutton" type="radio" value="radiobutton" id="radio2"/><label for="radio2">驳回</label>
+                            </li>
+                            <li id="checkDescLi" style="display: none;">
+                                <label class="tdtitle">驳回备注：</label>
+
+                                <textarea id="auditRemarks" name="auditRemarks" class="easyui-validatebox inputTextWidth360" style="height: 150px;" data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="128"></textarea>
+                            </li>
+                            <li>
+                                <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">确 认</a>
+                                <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+                            </li>
+                        </p>
+
+                        <p th:case="'FIRSTCHECK_REJECT'" th:if="${dto !=null&&dto.firstCheckDesc!=''&&dto.firstCheckDesc!=null&&dto.firstCheckDesc!='undefined'}">
+                            <li>驳回备注：<br/>
+                                <textarea name="firstCheckDesc" disabled="disabled" class="easyui-validatebox inputTextWidth360" style="height: 150px;" data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="128">[[${dto !=null?dto.firstCheckDesc:''}]]</textarea>
+                            </li>
+                        </p>
+                        <p th:case="'AUDIT_REJECT'" th:if="${dto !=null&&dto.auditDesc!=''&&dto.auditDesc!=null&&dto.auditDesc!='undefined'}">
+                            <li>
+                                复审驳回备注：<br/>
+                                <textarea name="auditDesc" disabled="disabled" class="easyui-validatebox inputTextWidth360" style="height: 150px;" data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="128">[[${dto !=null?dto.auditDesc:''}]]</textarea>
+                            </li>
+                        </p>
+                    </div>
+                    <li>
+                        <a class="easyui-linkbutton" th:if="${dto !=null&&dto.status!='STORE_APP'}" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+                    </li>
+                </ul>
+            </div>
+            <div title="跟踪" style="padding: 0px;">
+                <div style="height: 100%;" id="track">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+

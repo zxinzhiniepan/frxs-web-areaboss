@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>供应商提现详情</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/bussiness/financialAudit/vendorWithdrawalsInfo.js}"></script>
+    <style type="text/css">
+        .upload-imgurl {
+            border: none;
+        }
+
+        .upload-box {
+            float: left;
+        }
+
+        .webuploader-pick {
+            width: 80px;
+            height: 22px;
+            border: 1px solid #46b6de;
+            border-radius: 3px;
+            background: #46b6de;
+            color: #fff;
+            text-align: center;
+            line-height: 22px;
+            float: left;
+        }
+
+        .upload-btn input, .upload-btn label {
+            display: none;
+        }
+
+        .uploadpic img {
+            max-width: 125px;
+            max-height: 140px;
+            display: block;
+            padding-left: 80px;
+            padding-top: 10px;
+        }
+
+        .upload-progress {
+            display: none;
+        }
+
+        .product-img-box-btn {
+            margin-right: 10px;
+            color: blue;
+        }
+
+        #GgtDetails img {
+            max-width: 600px;
+            max-height: 200px;
+        }
+
+        .validatebox-invalid {
+            border-width: 1px;
+        }
+
+        .textbox {
+            border-radius: 0px;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+        }
+
+        .xs-forminfo li label {
+            min-width: 110px;
+        }
+
+        .xs-form-table .datagrid-pager .pagination-num {
+            width: 50px;
+        }
+
+        .xs-form-table select.pagination-page-list {
+            min-width: 60px;
+        }
+    </style>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">财务管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server">供应商提现</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <div id="formTable">
+            <div title="提现详情" style="padding: 10px">
+                <ul class="xs-forminfo" id="withdrawalInfo">
+                    <li>&nbsp;
+                    </li>
+                    <li>
+                        <label id="lblVendorWithdrawalsId" hidden="hidden">35</label>
+                        <label class="tdtitle">提现单号：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.vendorWithdrawNo:''}" maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">申请时间：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?(#dates.format(dto.tmWithdrawal, 'yyyy/MM/dd HH:mm:ss')):''}" maxlength="30"  type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">状态：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.statusName:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">供应商编码：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.vendorCode:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">供应商名称：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.vendorName:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">供应商企业号：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.unionPayMID:''}"  maxlength="30"  type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">收款人帐户：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.bankAccountName:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">开户行行号：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.bankNo:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">开户银行：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.bankName:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">银行帐号：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.bankAccountNo:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">本次申请提现金额：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.curWithdrawAmt.amount:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">总金额：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.totalAmt.amount:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">审核中金额：</label>
+                        <input class="easyui-validatebox" th:attr="value=${dto !=null?dto.auditingAmt.amount:''}"  maxlength="30" type="text" readonly="readonly" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">可提现金额：</label>
+                        <input   class="easyui-validatebox" th:attr="value=${dto !=null?dto.canWithdrawAmt.amount:''}"  maxlength="30" type="text" readonly="readonly"/>
+                    </li>
+                    <div th:switch="${dto !=null?dto.status:''}">
+                        <p th:case="'VENDOR_APP'">
+                        <li>
+                            <label class="tdtitle">
+                                <input name="radiobutton" type="radio" checked="checked" value="radiobutton" id="radio1"/><label for="radio1">审核通过</label>
+                                <input name="radiobutton" type="radio" value="radiobutton" id="radio2"/><label for="radio2">驳回</label>
+                            </label>
+                        </li>
+                        <li id="checkDescLi" style="display: none;">
+                            <label class="tdtitle">驳回理由：</label>
+
+                            <textarea id="auditRemarks" name="auditRemarks" class="easyui-validatebox inputTextWidth360" style="height: 150px;" data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="128"></textarea>
+                        </li>
+
+                        <li>
+                            <label class="tdtitle"><b></b></label>
+                            <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">确 认</a>
+                            <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+                        </li>
+                        </p>
+                        <p th:case="'FIRSTCHECK_REJECT'" th:if="${dto !=null&&dto.firstCheckDesc!=''&&dto.firstCheckDesc!=null&&dto.firstCheckDesc!='undefined'}">
+                        <li>
+                            <label class="tdtitle">驳回理由：</label>
+                            <textarea name="firstCheckDesc" disabled="disabled" class="easyui-validatebox inputTextWidth360" style="height: 150px;" data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="128">[[${dto !=null?dto.firstCheckDesc:''}]]</textarea>
+                        </li>
+                        </p>
+
+                        <p th:case="'AUDIT_REJECT'" th:if="${dto !=null&&dto.auditDesc!=''&&dto.auditDesc!=null&&dto.auditDesc!='undefined'}">
+                        <li >
+                            <label class="tdtitle">复审驳回理由：</label>
+                            <textarea name="firstCheckDesc" disabled="disabled" class="easyui-validatebox inputTextWidth360" style="height: 150px;" data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="128">[[${dto !=null?dto.auditDesc:''}]]</textarea>
+                        </li>
+                        </p>
+                    </div>
+                    <li>
+                        <label class="tdtitle"><b></b></label>
+                        <a class="easyui-linkbutton" th:if="${dto !=null&&dto.status!='VENDOR_APP'}" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+                    </li>
+                </ul>
+            </div>
+            <div title="跟踪" style="padding: 0px; height: 100%">
+                <div style="height: 100%;" id="track">
+                </div>
+            </div>
+            <div title="售后" style="padding: 0px; height: 100%">
+                <div style="height: 100%;" id="customerService">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+

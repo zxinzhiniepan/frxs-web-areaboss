@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+    <title>新增门店信息</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datePicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/storeProfile/loadUpLoadStoreView.js}"></script>
+    <script th:src="@{/scripts/common/ajaxfileupload.js}"></script>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">门店管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server">新增门店信息</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <fieldset>
+            <legend>新增门店列表</legend>
+            <ul class="xs-forminfo">
+                <li id="liSelectProduct">
+                    <input type="file" id="file1" name="file1">
+                    <a id="btnUpLoad" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" runat="server">上传</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{${storeTemplateUrl}}" style="color: blue">下载导入模板</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">备注：上传文件如已加密,请对文件进行解密后上传</span>
+                    <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" style="margin-left:270px;" runat="server">保 存</a>
+                    &nbsp;&nbsp; <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+                </li>
+                <li style="padding-right: 12px;">
+                    <script type="text/javascript">
+                        var listStore = [];
+                    </script>
+                    <div id="divStore"  style="width:2850px;"></div>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+</div>
+</body>
+<style type="text/css">
+    legend
+    {
+        color: #416AB7; font-weight: bold; margin-left:10px
+    }
+
+    fieldset
+    {
+        margin: 0px 0px 5px 0px; border: 1px solid #95B8E7; overflow:hidden;padding-top: 10px;
+    }
+
+    #tableRegion td
+    {
+        padding-right: 36px;
+    }
+
+    #tableRegion label
+    {
+        margin-right: 20px;
+    }
+
+    .tdtitle {text-align:right;
+    }
+    .width {width:100px;
+    }
+    label b {margin-right:5px;
+    }
+    .divBottomButton{
+        margin: 16px;
+    }
+    .datagrid-dt-region-province, .datagrid-dt-region-city, .datagrid-dt-region-county
+    {
+        width: 120px;
+    }
+
+    .datagrid-btable td{
+        padding: 0px 5px 0px 5px;
+    }
+</style>
+</html>

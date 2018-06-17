@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title th:text="${loginInfoDto.title}"></title>
+    <link rel="shortcut icon " type="images/x-icon" th:href="@{/content/images/666.png}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <script type="text/javascript" th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script type="text/javascript" th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script type="text/javascript" th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script type="text/javascript" th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script type="text/javascript" th:src="@{/content/js/layout.js}"></script>
+    <script type="text/javascript" th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script type="text/javascript" th:src="@{/scripts/plugin/jquery.easyui.extend.js}"></script>
+    <script type="text/javascript" th:src="@{/scripts/plugin/jquery.form.js}"></script>
+    <script type="text/javascript" th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script type="text/javascript" th:src="@{/scripts/bussiness/home/index.js}"></script>
+    <style type="text/css">
+        body {padding: 0px; margin: 0px;}
+        .panel-body {overflow: hidden;}
+        .navlist{list-style-type:none;margin:0px; padding:10px;}
+        .navlist li{ padding:0px;}
+        .navlist li a{line-height:24px;text-decoration:none; color:#000}
+        .navlist li div{margin:2px 0px;padding-left:0px;padding-top:2px; border:1px dashed #ffffff;}
+        .navlist li div.hover{border:1px dashed #99BBE8; background:#E0ECFF;cursor:pointer;}
+        .navlist li div.hover a{color:#416AA3;}
+        .navlist li div.selected{border:1px solid #99BBE8; background:#E0ECFF;cursor:default;  overflow: hidden;  display: block; white-space: nowrap; text-overflow: ellipsis;}
+        .navlist li div.selected a{color:#416AA3; font-weight:bold;}
+        /*.nav{ display: inline-block;background: url('../../content/images/favicon.png') left center no-repeat; }*/
+        .topright ul,li { margin:0; padding:0px}
+        .topright li { list-style:none }
+        .topleft { float:left; font-size:26px; padding-left:0px; padding-top:0px; font-family:"微软雅黑"}
+        .topright { float:right; padding-right:20px; font-size:14px ;   padding-top:15px     }
+        .topright a { color:#fff; text-decoration:none;
+        }
+    </style>
+</head>
+<body class="easyui-layout" scroll="no">
+<div region="north" split="true" border="false" style="overflow: hidden; background:#056DAA; height: 70px; color: #fff;">
+    <div class="topleft">
+        <a target="_parent">
+            <img th:src="@{/content/images/logo2.png}" /></a>
+    </div>
+    <div class="topright" style="padding-top:5px">
+        <ul style="margin-right: 50px">
+            <li class="admin" style="margin-top: 10px" th:object="${loginInfoDto}">所属区域：&nbsp;&nbsp;<span th:text="${loginInfoDto.loginArea}"></span></li>
+            <li style="line-height:30px;margin-top: 15px">  <li style="float: left" class="admin" th:object="${loginInfoDto}"><span th:text="${loginInfoDto.userName}"></span></li>| <a href="javascript:void(0)" onclick="return exitsys();" target="_parent">退出</a>|<a href="javascript:void(0)" onclick="return resetssoPwd();" target="_parent">修改密码</a></li>
+        </ul>
+  <!--      <p  style="text-align:right; padding-right:8px"><a href="/Upload/O2OReportSystem.rar">报表工具</a> <a href="/Upload/O2OLogisticsSystem.rar">物流端</a></p>-->
+    </div>
+</div>
+<div region="west" split="true" title="导航菜单" style="width: 200px;" id="west">
+    <div id="nav">
+        <!--  导航内容 -->
+    </div>
+</div>
+<div id="mainPanle" region="center" style="background: #eee; overflow-y: hidden">
+    <div id="tabs" class="easyui-tabs" fit="true" border="false">
+        <div title="首页" style="overflow: hidden; color: red;">
+            <iframe th:src="@{/home/main}" width="100%" height="100%" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+<div id="dlgAdd"></div>
+<div id="mm" style="width: 150px;" class="easyui-menu">
+    <div iconcls="icon-reload" id="refresh">刷新</div>
+    <div class="menu-sep"></div>
+    <div iconcls="icon-no" id="close">关闭</div>
+    <div id="closeall">关闭所有</div>
+    <div id="closeother">关闭其它</div>
+    <div id="closeleft">关闭左侧页签</div>
+    <div id="closeright">关闭右侧页签</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>添加商品</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/XSLibrary.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+<!--    <script th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.min.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.form.js}"></script>-->
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/extend/validator.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.easyui.extend.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/productImage.css}"/>
+    <script th:src="@{/scripts/plugin/webuploader/webuploader.min.js}"></script>
+    <script th:src="@{/scripts/plugin/webuploader/uploader.js}"></script>
+    <script th:src="@{/scripts/bussiness/products/addProducts.js}"></script>
+    <script th:src="@{/scripts/plugin/ueditor/ueditor.config.js}"></script>
+    <script th:src="@{/scripts/plugin/ueditor/ueditor.all.min.js}"></script>
+    <script th:src="@{/scripts/plugin/ueditor/lang/zh-cn/zh-cn.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.form.js}"></script>
+    <style type="text/css">
+        .upload-imgurl
+        {
+            border: none;
+        }
+
+        .upload-box
+        {
+            float: left;
+        }
+
+        .webuploader-pick
+        {
+            width: 80px;
+            height: 22px;
+            border: 1px solid #46b6de;
+            border-radius: 3px;
+            background: #46b6de;
+            color: #fff;
+            text-align: center;
+            line-height: 22px;
+            float: left;
+        }
+
+        .upload-btn input, .upload-btn label
+        {
+            display: none;
+        }
+
+        .uploadpic img
+        {
+            max-width: 125px;
+            max-height: 140px;
+            display: block;
+            padding-left: 80px;
+            padding-top: 10px;
+        }
+
+        .upload-progress
+        {
+            display: none;
+        }
+
+        .product-img-box-btn
+        {
+            margin-right: 10px;
+            color: blue;
+        }
+
+        #GgtDetails img
+        {
+            max-width: 600px;
+            max-height: 200px;
+        }
+        .validatebox-invalid { border-width:1px
+        }
+        .textbox { border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px
+        }
+    </style>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">商品管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server">添加商品</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <div id="formTable">
+            <div title="基本信息" style="padding: 10px">
+                <ul class="xs-forminfo" id="productInfo">
+                    <li>&nbsp;
+                    </li>
+                    <li>
+                        <label class="tdtitle">供应商<b>*</b></label>
+                        <input id="txtVendorName" name="vendorName" class="easyui-validatebox" maxlength="30" type="text" readonly="readonly"  />
+                        <input type="hidden" id="txtVendorID" name="vendorId" />
+                        <input type="hidden" id="txtTXTKID" name="TXTKID" value="" />
+                        <input type="hidden" id="txtTXTKCode" name="TXTKCode" />
+                        <input type="hidden" id="txtBaseProductID" name="BaseProductId"/>
+                        <input type="hidden" id="txtImageProductId" name="ImageProductId" />
+                        <a id="btnSelectVendor" class="easyui-linkbutton">选择供应商</a>
+                    </li>
+                    <li>
+                        <label class="tdtitle">商品名称<b>*</b></label>
+                        <input id="txtProductName" name="productName" class="easyui-validatebox inputTextWidth360" placeholder="请填写商品名称" maxlength="50" type="text" data-options="required:true,validType:['valueStrTwo','minLenFormat[2]','maxLenFormat[50, true]'],tipPosition:'bottom'" />
+                        <span>最多添加50个字符</span>
+                    </li>
+                    <li>
+                        <label class="tdtitle">商品副标题<b> </b></label>
+                        <input id="txtProductName2" name="productTitle" class="easyui-validatebox inputTextWidth360" placeholder="请填写商品副标题" maxlength="50" type="text" data-options="validType:['valueStrTwo','maxLenFormat[50, true]'],tipPosition:'bottom'" />
+                        <span>最多添加50个字符</span>
+                    </li>
+                    <li>
+                        <label class="tdtitle">产地<b>*</b></label>
+                        <input id="txtPlaceOfOrigin" name="yieldly" class="easyui-validatebox inputTextWidth360" placeholder="请填写产地" type="text" data-options="required:true,validType:['valueStrTwo','chinese','maxLenFormat[32, true]'],tipPosition:'bottom'" maxlength="32"/>
+                        <span>最多添加32个字符</span>
+                    </li>
+                    <li>
+                        <label class="tdtitle">品牌<b>*</b></label>
+                        <input id="txtBaradName1" name="brandName" class="easyui-validatebox" placeholder="请填写品牌" type="text"  data-options="required:true,validType:['valueStrTwo','maxLenFormat[32, true]'],tipPosition:'bottom'" maxlength="32" />
+                        <span>最多添加32个字符</span>
+                    </li>
+                    <li>
+                        <label class="tdtitle">规格<b>*</b></label>
+                        <input id="txtMutValues" name="attrVal" class="easyui-validatebox" placeholder="请填写规格" data-options="required:true,validType:['chineseOrNumbOr_Lett','maxLenFormat[30, true]'],tipPosition:'bottom'" maxlength="30" type="text" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">包装数<b>*</b></label>
+                        <input id="txtPackingNumber" name="packageQty" class="easyui-validatebox easyui-numberbox" placeholder="请填写包装数" type="text" data-options="required:true,min:0,max:99999,precision:2," maxlength="10" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">限订数量<b>*</b></label>
+                        <input id="txtPresaleQuantity" name="limitQty" class="easyui-validatebox easyui-numberbox" placeholder="请填写限订数量" type="text" data-options="required:true,min:0,max:999999" maxlength="10"  />
+                    </li>
+                    <li>
+                        <label class="tdtitle">价格<b>*</b></label>
+                        <input id="txtPresalePrice" name="saleAmt" class="easyui-validatebox easyui-numberbox" placeholder="请填写价格" type="text" data-options="required:true,min:0,max:99999,precision:2" maxlength="10"/>
+                    </li>
+                    <li>
+                        <label class="tdtitle">市场价<b>*</b></label>
+                        <input id="txtMarketPrice" name="marketAmt" class="easyui-validatebox easyui-numberbox" placeholder="请填写市场价" type="text" data-options="required:true,min:0,max:99999,precision:2" maxlength="10"/>
+                    </li>
+
+                    <li>
+                        <label class="tdtitle">平台服务费<b>*</b></label>
+                        <input id="txtCompanyCommission" name="perServiceAmt" class="easyui-validatebox easyui-numberbox" placeholder="请填写市场价" type="text" data-options="required:true,min:0,max:99999,precision:2" maxlength="10"/>
+                    </li>
+                    <li>
+                        <label class="tdtitle">门店每份提成<b>*</b></label>
+                        <input id="txtCommission" name="perCommission" class="easyui-validatebox easyui-numberbox" placeholder="请填写每份提成" type="text" data-options="required:true,min:0,max:99999,precision:2" maxlength="10" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">售后时限<b>*</b></label>
+
+                        <input id="txtAfterSalePeriod" name="saleLimitTime" class="easyui-validatebox easyui-numberbox" placeholder="请填写售后时限"  type="text" value="48" data-options="required:true,min:1,max:99999" maxlength="10" />
+                        <select id="timeType" style="min-width:20px" name="saleLimitTimeUnit">
+                            <option value="HOUR">小时</option>
+                            <option value="DAY">天</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label class="tdtitle">分享副标题<b></b></label>
+                        <input id="ShareName" name="shareTitle"  class="easyui-validatebox inputTextWidth360" placeholder="请填写分享副标题" type="text" data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="32" />
+                    </li>
+                    <li>
+                        <label class="tdtitle">商品简介<b></b></label>
+                        <textarea id="txtShareDescription" name="briefDesc" class="easyui-validatebox inputTextWidth360" style="height: 150px;" placeholder="请填写商品简介" data-options="validType:['valueStrTwo','minLenFormat[2]'],tipPosition:'bottom'" maxlength="128"></textarea>
+                    </li>
+
+                    <li>
+                        <label class="tdtitle">广告图<b>*</b></label>
+                        <div class="upload-box upload-album" id="uploadGgtAlbum"></div>
+                        <span>照片支持格式jpg，大小不要超过100K</span>
+                        <input id="hidAdvertisementImageSrc" name="advertisementImageSrc" type="hidden" />
+                    </li>
+                    <li>
+                        <div id="GgtDetails" style="width: 680px;">
+                        </div>
+                    </li>
+                    <li>&nbsp;</li>
+
+                    <li>
+                        <label class="tdtitle">商品主图<b>*</b></label>
+                        <span>建议商品主图不要超过六张</span>
+                        <a id="btnAddImage" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加图片</a>
+                        <div class="upload-box upload-album" id="uploadAlbum1"></div>
+                    </li>
+                    <li>
+                        <script type="text/javascript">
+                            var productMainImage = [
+                            ];
+                        </script>
+                        <div id="ProductMainImage" style="width: 680px;">
+                        </div>
+                    </li>
+                    <li>&nbsp;</li>
+
+                    <li>
+                        <label class="tdtitle"><b></b></label>
+                        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保 存</a>
+                        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+                    </li>
+                </ul>
+            </div>
+            <div title="图文详情" style="padding: 10px;">
+                <ul class="xs-forminfo" id="productImageInfo">
+                    <li>&nbsp;
+                    </li>
+                    <li>
+                        <input id="productId" type="hidden" />
+                        <input id="hidDescription" type="hidden" />
+                        <script id="editorDescription" type="text/html" style="width: 700px; height: 260px;"></script>
+                    </li>
+                    <li>
+                        <div class = "upload-box upload-album" id="uploadAlbum"></div>
+                            </li>
+                            <li>
+                            <p style="padding-top: 5px;">请选择你要上传的图片</p>
+                            <p>1、照片支持格式：jpg</p>
+                        <p>2、每次最多可上传10张照片，每张照片大小不要超过100K</p>
+                    </li>
+                    <li>
+                        <script type="text/javascript">
+                        var productGraphicDetails = [
+                        ];
+                        </script>
+                        <div id="GraphicDetails" style="width: 680px;">
+                        </div>
+                    </li>
+                    <li>&nbsp;
+                    </li>
+                    <li>
+                        <label class="tdtitle"><b></b></label>
+                        <a id="btnSave1" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保 存</a>
+                        <a id="btnClose1" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

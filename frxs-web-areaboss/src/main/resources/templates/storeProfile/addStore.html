@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>添加门店</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/productImage.css}" rel="stylesheet" />
+
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datePicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/plugin/webuploader/webuploader.min.js}"></script>
+    <script th:src="@{/scripts/plugin/webuploader/uploader.js}"></script>
+    <script th:src="@{http://api.map.baidu.com/api(v=2.0,ak='3xLZAs5c5UxZe3EjZ2LBqE2g0Lwt1FsI')}"></script>
+    <script th:src="@{/scripts/bussiness/storeProfile/addStore.js}"></script>
+    <style type="text/css">
+        .textbox {
+            border-radius: 0px;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+            border-color: #A9A9A9;
+            margin-top: -4px;
+        }
+
+        .textbox .textbox-text {
+            border-radius: 0px;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+        }
+
+
+        .upload-imgurl {
+            border: none;
+        }
+
+        .upload-box {
+            float: left;
+        }
+
+        .webuploader-pick {
+            width: 120px;
+            height: 22px;
+            border: 1px solid #46b6de;
+            border-radius: 3px;
+            background: #46b6de;
+            color: #fff;
+            text-align: center;
+            line-height: 22px;
+            float: left;
+        }
+
+        .upload-btn input, .upload-btn label {
+            display: none;
+        }
+
+        .ImagesDetails img {
+            max-width: 160px;
+            max-height: 160px;
+        }
+
+        .xs-form-table select {
+            min-width: 119px;
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" id="oldLineId" />
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">门店管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server"
+               th:text="${result!=null?'编辑门店':'添加门店'}"></a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <ul class="xs-forminfo">
+            <li>
+                <b>&nbsp;</b>
+            </li>
+            <li th:style='${result!=null?"":"display: none;"}'>
+                <label class="tdtitle">仓库：</label>
+                <input type="text" disabled="disabled"
+                       th:value='${result!=null?result.record.warehouseName:""}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>门店编号：</label>
+                <input type="hidden" id="storeId" name="storeId"
+                       th:value='${result!=null?result.record.storeId:""}'/>
+                <input type="text" id="txtshopid" name="storeCode" maxlength="8" class="txt"
+                       th:value='${result!=null?result.record.storeCode:""}'/>
+                <span>仅限8位以内的数字</span>
+            </li>
+            <li th:style='${result!=null?"":"display: none;"}'>
+                <label class="tdtitle">门店分享ID：</label>
+                <input type="text" disabled="disabled"
+                       th:value='${result!=null?result.record.storeId:""}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>门店名称：</label>
+                <input type="text" id="txtCompanyName" name="storeName" class="txt" maxlength="30"
+                       th:value='${result!=null?result.record.storeName:""}'/>
+                <span id="txtCompanyNameTip"></span>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>联系人：</label>
+                <input type="text" id="txtlxname1" name="contacts" class="txt" maxlength="10"
+                       th:value='${result!=null?result.record.contacts:""}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>门店账号：</label>
+                <input type="text" id="txtshopname" name="userName" class="txt" maxlength="11"
+                       th:value='${result!=null?result.record.userName:""}'/>
+                <span id="txtAddressTip">仅限手机号码，且首次登录密码为门店账号后六位</span>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>客服电话：</label>
+                <input type="text" id="txtTel" name="contactsTel" class="txt" maxlength="20"
+                       th:value='${result!=null?result.record.contactsTel:""}'/>
+                <span id="txtTelTip">支持输入手机号码或座机号码，座机号码需加区号并用“-”隔开</span>
+            </li>
+            <!--<li>
+                <label class="tdtitle"><b>*</b>配送仓库：</label>
+                <select id="ddlWarehouseID" name="warehouseId">
+                    <option value="" th:remove="${result!=null}? tag">&#45;&#45;请选择配送仓库&#45;&#45;</option>
+                    <option th:each="warehouseDto:${warehouseDtoList}"
+                            th:selected="${result!=null&&result.record.warehouseId==warehouseDto.warehouseId}"
+                            th:value="${warehouseDto.warehouseId}"
+                            th:text="${warehouseDto.warehouseName}"></option>
+                </select>
+            </li>
+            <li>
+                <label class="tdtitle">配送线路：</label>
+                <select id="ddlLineID" name="lineId" >
+                    <option value="0">&#45;&#45;请选择配送线路&#45;&#45;</option>
+                    <option th:each="distributionLineDto:${distributionLineDtoList}"
+                            th:selected="${storeLine!=null&&storeLine.lineId==distributionLineDto.id}"
+                            th:value="${distributionLineDto.id}"
+                            th:text="${distributionLineDto.lineName}"></option>
+                </select>
+                <input type="text" id="txtLineSort" name="lineSort" class="txt easyui-numberbox" style="width:80px; margin-top:-2px" data-options="min:1,max:10000,precision:0,required:true" maxlength="20"
+                       th:value='${result!=null?result.record.lineSort:"1"}'/>
+            </li>-->
+            <li>
+                <label class="tdtitle" style="margin-right: 12px">门店开发人员：</label>
+                <input type="text" id="txtlxname" name="storeDeveloper" class="txt" maxlength="10"
+                       th:value='${result!=null?result.record.storeDeveloper:""}'/>
+            </li>
+            <li>
+                <label class="tdtitle" style="margin-right: 0px"><b>*</b>门店微信群名称：</label>
+                <input type="text" id="txtWeChatGroupName" name="wechatGroupName" placeholder="例：兴盛优选(0788)早安星城店" class="txt" maxlength="32"
+                       th:value='${result!=null?result.record.wechatGroupName:""}'/>
+            </li>
+
+            <li>
+                <label class="tdtitle"><b>*</b>营业面积：</label>
+                <input type="text" id="txtShopArea" name="shopArea" class="txt" maxlength="30"
+                       th:value='${result!=null?result.record.shopArea:""}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>营业执照：</label>
+                <input type="text" id="txtBusiLicenseFullName" name="busiLicenseFullName" class="txt" maxlength="30"
+                       th:value='${result!=null?result.record.busiLicenseFullName:""}'/>
+            </li>
+            <li style="position: relative">
+                <label class="tdtitle">&nbsp;</label><div class="upload-box upload-album" id="uploadBusiLicenseFullName"></div>
+                <span style="position: absolute; top: 5px; left: 240px">照片支持格式jpg，大小不要超过1M</span>
+                <input id="hidBusiLicenseFullNameImgSrc" name="busiLicenseFullNameImgSrc" type="hidden"
+                       th:value='${result!=null?result.record.busiLicenseFullNameImgSrc:""}'/>
+            </li>
+            <li>
+                <div id="imgBusiLicenseFullName" class="imagesDetails" style="width: 380px; padding-top: 10px; padding-left: 109px">
+                    <img th:attr="src=${result!=null?result.record.busiLicenseFullNameImgSrc:''}"/>
+                </div>
+            </li>
+            <li>
+                <label class="tdtitle" style="margin-right: 0px"><b>*</b>食品流通许可证：</label>
+                <input type="text" id="txtFoodCirculationLicense" name="foodCirculationLicense" class="txt" maxlength="30"
+                       th:value='${result!=null?result.record.foodCirculationLicense:""}'/>
+            </li>
+            <li style="position: relative">
+                <label class="tdtitle">&nbsp;</label>
+                <div class="upload-box upload-album" id="uploadFoodCirculationLicense"></div>
+                <span style="position: absolute; top: 5px; left: 240px">照片支持格式jpg，大小不要超过1M</span>
+                <input id="hidFoodCirculationLicenseImgSrc" name="foodCirculationLicenseImgSrc" type="hidden"
+                       th:value='${result!=null?result.record.foodCirculationLicenseImgSrc:""}'/>
+            </li>
+            <li>
+                <div id="imgFoodCirculationLicense" class="imagesDetails" style="width: 380px; padding-top: 10px; padding-left: 109px">
+                    <img th:attr="src=${result!=null?result.record.foodCirculationLicenseImgSrc:''}"/>
+                </div>
+            </li>
+
+            <li  style="display:none">
+                <label class="tdtitle">提成支付方式：</label>
+                <select id="ddlPayMethod" name="withdrawalsType"  >
+                    <option value="公司转账" selected="selected">公司转账</option>
+                </select>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>收款人帐户：</label>
+                <input type="text" id="txtBankAccountName" name="bankAccountName" class="txt" maxlength="30"
+                       th:value='${result!=null?result.record.bankAccountName:""}'
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>开户行行号:</label>
+                <input type="text" id="txtBankNO" name="bankNo" class="txt" maxlength="30"
+                       th:value='${result!=null?result.record.bankNo:""}'
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>开户银行：</label>
+                <input type="text" id="txtBankName" name="bankName" class="txt" maxlength="30"
+                       th:value='${result!=null?result.record.bankName:""}'
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>银行帐号：</label>
+                <input type="text" id="txtBankAccountNO" name="bankAccountNo" class="txt" data-options="precision:0,required:true" maxlength="19"
+                       th:value='${result!=null?result.record.bankAccountNo:""}'
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle">企业用户号：</label>
+                <input type="text" id="txtUnionPayCID" name="unionPayCID" class="txt" data-options="precision:0,required:true" maxlength="19"
+                       th:value='${result!=null?result.record.unionPayCID:""}'
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle">银联商户号：</label>
+                <input type="text" id="txtUnionPayMID" name="unionPayMID" class="txt" data-options="precision:0,required:true" maxlength="19"
+                       th:value='${result!=null?result.record.unionPayMID:""}'
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>门店地址：</label>
+                <select conRegionSelectProvince="1" id="ddlProvince" name="provinceId"
+                        th:provinceId="${result!=null?result.record.provinceId:0}"></select>
+                <select conregionselectcity="1" id="ddlCity" name="cityId"
+                        th:cityId="${result!=null?result.record.cityId:0}"></select>
+                <select conregionselectcounty="1" id="ddlCounty" name="countyId"
+                        th:countyId="${result!=null?result.record.countyId:0}"></select>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>详细地址：</label>
+                <input type="text" id="txtAddress" name="detailAddress" class="txt" maxlength="30"
+                       th:detailAddress='${result!=null?result.record.detailAddress:""}'/>
+                <input type="hidden" id="hdMyPosX" name="mapX"
+                       th:value='${result!=null?result.record.mapX:""}'/>
+                <input type="hidden" id="hdMyPosY" name="mapY"
+                       th:value='${result!=null?result.record.mapY:""}'/>
+                <input type="hidden" id="txtMyPosX"/>
+                <input id="butmap" style="color: #FF7000;" type="button" onclick="addressChange()" value="地图定位" />
+                <span></span>
+            </li>
+            <li>
+                <label class="tdtitle"></label>
+                <div style="width: 650px; height: 350px; border: #ccc solid 1px;" id="dituContent"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

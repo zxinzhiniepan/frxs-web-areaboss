@@ -1,0 +1,66 @@
+
+
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>重置密码</title>
+<!--    <link href="/Scripts/plugin/easyui/themes/default/messager.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/icon.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/default/easyui.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/default/messager.css?v=20180112001" rel="stylesheet" />
+    <link href="/Content/css/style.css?v=20180112001" rel="stylesheet" />
+
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.min.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.easyui.min.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.form.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/locale/easyui-lang-zh_CN.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.easyui.extend.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/XSLibrary/js/XSLibrary.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/My97DatePicker/WdatePicker.js?v=20180112001"></script>
+    <script src="/Scripts/business/vendorAccount/resultAccountPwd.js?version=20180112001"></script>-->
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/default/messager.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/vendorAccount/resultAccountPwd.js}"></script>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">首页</a></li>
+        <li><a href="javascript:">系统管理</a></li>
+
+    </ul>
+</div>
+<div class="xs-form-main">
+    <ul class="xs-forminfo">
+        <li>
+            <b>&nbsp;</b>
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 密码</label>
+            <input id="txtPassword1" name="Pwd" type="password" placeholder="请填写6位以上的密码" maxlength="16" class="easyui-validatebox" data-options="required:true,validType:['minLenFormat[6]']" />
+        </li>
+        <li>
+            <label class="tdtitle"><b>*</b> 确认密码</label>
+            <input id="txtPassword2" name="Password2" type="password" placeholder="请填写确认密码" maxlength="16" class="easyui-validatebox" data-options="required:true,validType:['minLenFormat[6]']" />
+        </li>
+    </ul>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

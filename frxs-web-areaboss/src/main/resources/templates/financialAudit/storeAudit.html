@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>门店审核</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <script th:src="@{/content/easyui-1.4.3/jquery-1.7.1.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.cookie.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/content/js/layout.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.easyui.extend.js}"></script>
+    <script th:src="@{/scripts/plugin/jquery.form.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/bussiness/financialAudit/storeAudit.js}"></script>
+</head>
+    <body>
+        <form id="myform">
+        <div class="xs-form-main">
+            <div class="xs-form-table">
+                <div id="formTable">
+                    <div title="提现详情" style="padding: 10px">
+                        <ul class="xs-forminfo" id="WithdrawalInfo">
+                            <li>&nbsp;
+                            </li>
+
+                            <li>
+                                <label class="tdtitle">&nbsp;</label>
+                                <input name="radiobutton" type="radio" value="radiobutton" id="radio1" checked="checked"><label for="radio1">审核通过</label>
+                                <input name="radiobutton" type="radio" value="radiobutton" id="radio2"><label for="radio2">驳回</label>
+                            </li>
+
+                            <li id="checkDescLi" style="display: none;">
+                                <label>驳回备注：</label>
+                                <textarea id="firstCheckDesc" name="FirstCheckDesc" class="easyui-validatebox inputTextWidth360" style="height: 150px;" data-options="tipPosition:'bottom'" maxlength="128"></textarea>
+                            </li>
+                            <li>&nbsp;
+                            </li>
+                            <li>
+                                <label class="tdtitle"><b></b></label>
+                                <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'">确 认</a>
+                                <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div title="跟踪" style="padding: 10px;">
+                        <div style="height: 100%;" id="track">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </body>
+</html>
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>编辑门店银行账户</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datePicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/vendor/editVendorBankInfo.js}"></script>
+</head>
+<body>
+<input type="hidden" id="oldLineId" />
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">供应商管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server"> 编辑供应商银行账户</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <ul class="xs-forminfo">
+            <li>
+                <b>&nbsp;</b>
+            </li>
+            <li class="PayMethod">
+                <label class="tdtitle"><b>*</b>收款人帐户：</label>
+                <input type="text" id="txtBankAccountName" name="bankAccountName" class="txt" maxlength="30"
+                       th:value="${result.record.bankAccountName}"/>
+                <input type="hidden" id="hidVendorID" name="vendorId"
+                       th:value="${result.record.vendorId}" />
+                <input type="hidden" id="hidVendorName" name="vendorName"
+                       th:value="${result.record.vendorName}" />
+            </li>
+            <li class="PayMethod">
+                <label class="tdtitle"><b>*</b>开户行行号:</label>
+                <input type="text" id="txtBankNO" name="bankNo" class="txt" maxlength="30"
+                       th:value="${result.record.bankNo}"/>
+            </li>
+            <li class="PayMethod">
+                <label class="tdtitle"><b>*</b>开户银行：</label>
+                <input type="text" id="txtBankName" name="bankName" class="txt" maxlength="30"
+                       th:value="${result.record.bankName}"/>
+            </li>
+            <li class="PayMethod">
+                <label class="tdtitle"><b>*</b>银行帐号：</label>
+                <input type="text" id="txtBankAccountNO" name="bankAccountNo" class="txt" data-options="precision:0,required:true" maxlength="19"
+                       th:value="${result.record.bankAccountNo}" />
+            </li>
+            <li class="PayMethod">
+                <label class="tdtitle">企业用户号：</label>
+                <input type="text" id="txtUnionPayCID" name="unionPayCID" class="txt" data-options="precision:0,required:true" maxlength="19"
+                       th:value="${result.record.unionPayCID}"/>
+            </li>
+            <li class="PayMethod">
+                <label class="tdtitle">银联商户号：</label>
+                <input type="text" id="txtUnionPayMID" name="unionPayMID" class="txt" data-options="precision:0,required:true" maxlength="19"
+                       th:value="${result.record.unionPayMID}"/>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>
+

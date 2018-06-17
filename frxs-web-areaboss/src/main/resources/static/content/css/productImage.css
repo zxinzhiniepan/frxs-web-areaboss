@@ -1,0 +1,41 @@
+.product-img-box
+{
+    float: left;
+    margin: 10px;
+    position: relative;
+    border: 1px solid #8db1e8;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.product-img-box-select
+{
+    background-color: #e0ecff;
+}
+
+.product-img-box img
+{
+    width: 130px;
+    height: 130px;
+    z-index: 1;
+}
+
+.product-img-box input
+{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 2;
+}
+
+.product-img-box .closeImage
+{
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    z-index: 2; background:url(../images/icon_close_alt.png)
+
+
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>编辑供应商</title>
+    <link th:href="@{/content/easyui-1.4.3/themes/default/messager.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/icon.css}" rel="stylesheet" />
+    <link th:href="@{/content/easyui-1.4.3/themes/default/easyui.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/style.css}" rel="stylesheet" />
+    <link th:href="@{/content/css/productImage.css}" rel="stylesheet" />
+
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datePicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/plugin/webuploader/webuploader.min.js}"></script>
+    <script th:src="@{/scripts/plugin/webuploader/uploader.js}"></script>
+    <script th:src="@{http://api.map.baidu.com/api(v=2.0,ak='3xLZAs5c5UxZe3EjZ2LBqE2g0Lwt1FsI')}"></script>
+    <script th:src="@{/scripts/bussiness/vendor/addVendor.js}"></script>
+    <style type="text/css">
+        .upload-imgurl {
+            border: none;
+        }
+
+        .upload-box {
+            float: left;
+        }
+
+        .webuploader-pick {
+            width: 120px;
+            height: 22px;
+            border: 1px solid #46b6de;
+            border-radius: 3px;
+            background: #46b6de;
+            color: #fff;
+            text-align: center;
+            line-height: 22px;
+            float: left;
+        }
+
+        .upload-btn input, .upload-btn label {
+            display: none;
+        }
+
+        .ImagesDetails img {
+            max-width: 160px;
+            max-height: 160px;
+        }
+        .ImagesDetails .closeImage {
+            width: 23px;
+            height: 23px;
+            position: relative;
+            top: 10px;
+            left: -10px;
+            z-index: 2;
+            background: url(../../static/content/images/icon_close_alt.png);
+        }
+        .xs-form-table select { min-width:119px
+        }
+    </style>
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">供应商管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server"
+               th:text="${result!=null?'编辑供应商':'添加供应商'}"></a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <ul class="xs-forminfo">
+            <li>
+                <b>&nbsp;</b>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>供应商名称：</label>
+                <input type="text" id="txtCompanyName" name="vendorName" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.vendorName:''}"/>
+                <span id="txtCompanyNameTip"></span>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>供应商简称：</label>
+                <input type="text" id="txtVendorShortName" name="vendorShortName" class="txt" maxlength="7"
+                       th:value="${result!=null?result.record.vendorShortName:''}"/>
+                <span id="txtVendorShortNameTip">7个字以内</span>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>供应商编码：</label>
+                <input type="text" id="txtVendorCode" name="vendorCode" class="txt" maxlength="10"
+                       th:value="${result!=null?result.record.vendorCode:''}"
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>联系人：</label>
+                <input type="text" id="txtlxname" name="contacts" class="txt" maxlength="10"
+                       th:value="${result!=null?result.record.contacts:''}"/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>供应商账号：</label>
+                <input type="text" id="txtshopname" name="userName" class="txt" maxlength="11"
+                       th:value='${result!=null?result.record.userName:""}'
+                       th:disabled = "true"/>
+                <span id="txtAddressTip" style="color:red">账户为供应商编号，首次登录密码为联系电话后六位</span>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>联系电话：</label>
+                <input type="text" id="txtTel" name="contactsTel" class="txt" maxlength="20"
+                       th:value="${result!=null?result.record.contactsTel:''}"/><br />
+                <span id="txtTelTip" style="padding-left:105px">联系电话长度限制在3-20个字符之间，只能输入数字和字符“-”</span>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>省市区：</label>
+                <select conRegionSelectProvince="1" id="ddlProvince" name="provinceId"
+                        th:provinceId="${result!=null?result.record.provinceId:0}"></select>
+                <select conregionselectcity="1" id="ddlCity" name="cityId"
+                        th:cityId="${result!=null?result.record.cityId:0}"></select>
+                <select conregionselectcounty="1" id="ddlCounty" name="countyId"
+                        th:countyId="${result!=null?result.record.countyId:0}"></select>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>详细地址：</label>
+                <input type="text" id="txtAddress" name="address" class="txt" maxlength="30" style="width: 360px;"
+                       th:address="${result!=null?result.record.address:''}"/>
+                <span></span>
+            </li>
+            <li style="width: 500px;display: flex;flex-direction: row;justify-content: space-around;align-items: flex-start;">
+                <label class="tdtitle"><b>*</b>供应商分类：</label>
+                <div style="width: 500px;display: inline-flex;flex-direction: row;justify-content: flex-start;align-items: center;flex-wrap: wrap;">
+                <span style="margin-left:10px;" th:each="vendorTypeDto,stat:${vendorTypeResult.record}">
+                <input type="checkbox" name="vendorTypeId" id="vendorTypeId"
+                       th:value="${vendorTypeDto.vendorTypeId}"
+                       th:text="${vendorTypeDto.vendorTypeName}"/>
+<!--                 <br  th:if="${stat.count%4==0}"/>-->
+                 </span>
+                </div>
+            </li>
+
+            <li>
+                <label class="tdtitle"><b>*</b>法定代表人：</label>
+                <input type="text" id="txtLegalPeople" name="legalPeople" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.legalPeople:''}"/>
+            </li>
+
+            <li>
+                <label class="tdtitle"><b>*</b>营业面积：</label>
+                <input type="text" id="txtVendorArea" name="vendorArea" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.vendorArea:''}"/>
+            </li>
+
+            <li>
+                <label class="tdtitle"><b>*</b>营业执照：</label>
+                <input type="text" id="txtBusiLicenseFullName" name="busiLicenseFullName" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.busiLicenseFullName:''}"/>
+            </li>
+            <li style="position:relative">
+                <label class="tdtitle">&nbsp;</label><div class="upload-box upload-album" id="uploadBusiLicenseFullName"></div>
+                <span style="position:absolute; top:5px; left:240px">照片支持格式jpg，大小不要超过1M</span>
+                <input id="hidBusiLicenseFullNameImgSrc" name="busiLicenseFullNameImgSrc" type="hidden"
+                       th:value="${result!=null?result.record.busiLicenseFullNameImgSrc:''}"/>
+            </li>
+            <li>
+                <label class="tdtitle" style="margin-right:0px"><b></b></label>
+                <div id="ImgBusiLicenseFullName" class="imagesDetails" style="width: 100px; padding-top:10px; padding-left:109px">
+                    <img th:attr="src=${result!=null?result.record.busiLicenseFullNameImgSrc:''}"/>
+                </div>
+            </li>
+
+            <li>
+                <label class="tdtitle" style="margin-right:0px"><b>*</b>食品流通许可证：</label>
+                <input type="text" id="txtFoodCirculationLicense" name="foodCirculationLicense" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.foodCirculationLicense:''}"/>
+            </li>
+            <li style="position:relative">
+                <label class="tdtitle">&nbsp;</label><div class="upload-box upload-album" id="uploadFoodCirculationLicense" ></div>
+                <span style="position:absolute; top:5px; left:240px">照片支持格式jpg，大小不要超过1M</span>
+                <input id="hidFoodCirculationLicenseImgSrc" name="foodCirculationLicenseImgSrc" type="hidden"
+                       th:value="${result!=null?result.record.foodCirculationLicenseImgSrc:''}"/>
+            </li>
+            <li>
+                <label class="tdtitle" style="margin-right:0px"><b></b></label>
+                <div id="ImgFoodCirculationLicense" class="imagesDetails" style="width: 160px; padding-top:10px; padding-left:109px">
+                    <img th:attr="src=${result!=null?result.record.foodCirculationLicenseImgSrc:''}"/>
+                </div>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>收款人账户：</label>
+                <input type="text"  id="txtBankAccountName" name="bankAccountName" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.bankAccountName:''}"
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>开户行：</label>
+                <input type="text"  id="txtBankType" name="bankName" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.bankName:''}"
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>银行帐号：</label>
+                <input type="text"  id="txtBankAccount" name="bankAccountNo" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.bankAccountNo:''}"
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>开户行行号：</label>
+                <input type="text"  id="txtBankNO" name="bankNo" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.bankNo:''}"
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b></b>银联商户号：</label>
+                <input type="text"  id="txtUnionPayMID" name="unionPayMID" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.unionPayMID:''}"
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li>
+                <label class="tdtitle"><b></b>企业用户号：</label>
+                <input type="text"  id="txtUnionPayCID" name="unionPayCID" class="txt" maxlength="30"
+                       th:value="${result!=null?result.record.unionPayCID:''}"
+                       th:disabled = '${result!=null?"true":"false"}'/>
+            </li>
+            <li style="position:relative">
+                <label class="tdtitle">供应商Logo</label>
+                <div class="upload-box upload-album" id="uploadAlbum"></div>
+                <span style="position:absolute; top:5px; left:240px">照片支持格式jpg，大小不要超过100K</span>
+                <input id="hidVendorLogo" name="vendorLogo" type="hidden"
+                       th:value="${result!=null?result.record.vendorLogo:''}"/>
+            </li>
+            <li>
+                <div id="GgtDetails" class="imagesDetails" style="width: 380px; padding-top:10px; padding-left:109px">
+                    <img th:attr="src=${result!=null?result.record.vendorLogo:''}"/>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>

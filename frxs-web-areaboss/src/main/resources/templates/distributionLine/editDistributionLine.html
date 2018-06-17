@@ -1,0 +1,80 @@
+
+
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加/编辑配送线路</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/default/messager.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/icon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/easyui-1.4.3/themes/metro/easyui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/content/css/style.css}"/>
+<!--    <link href="/Scripts/plugin/easyui/themes/default/messager.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/icon.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/default/easyui.css?v=20180112001" rel="stylesheet" />
+    <link href="/Scripts/plugin/easyui/themes/default/messager.css?v=20180112001" rel="stylesheet" />
+    <link href="/Content/css/style.css?v=20180112001" rel="stylesheet" />-->
+    <script th:src="@{/content/easyui-1.4.3/jquery.min.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/jquery.easyui.js}"></script>
+    <script th:src="@{/content/easyui-1.4.3/locale/easyui-lang-zh_CN.js}"></script>
+    <script th:src="@{/scripts/common/XSLibrary.js}"></script>
+    <script th:src="@{/scripts/plugin/datepicker/WdatePicker.js}"></script>
+    <script th:src="@{/scripts/bussiness/distributionLine/editDistributionLine.js}"></script>
+<!--    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.min.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.easyui.min.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.form.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/locale/easyui-lang-zh_CN.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/easyui/jquery.easyui.extend.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/XSLibrary/js/XSLibrary.js?v=20180112001"></script>
+    <script type="text/javascript" src="/Scripts/plugin/My97DatePicker/WdatePicker.js?v=20180112001"></script>
+    <script src="/Scripts/business/distributionLine/EditDistributionLine.js?v=20180112001"></script>-->
+</head>
+<body>
+<div class="place xs-form-nav">
+    <span>位置：</span>
+    <ul class="placeul">
+        <li><a href="javascript:">配送线路管理</a></li>
+        <li><a href="javascript:" id="navthis" runat="server">添加配送线路</a></li>
+    </ul>
+</div>
+<div class="xs-form-main">
+    <div class="xs-form-table">
+        <ul class="xs-forminfo">
+            <li>
+                <b>&nbsp;</b>
+            </li>
+            <li>
+                <label class="tdtitle"><b>*</b>配送线路名称：</label>
+                <input type="text" id="txtLineName" name="lineName" th:value='${distributionLineDto!=null?distributionLineDto.lineName:""}' maxlength="16" placeholder="请填写配送线路名称" class="txt easyui-validatebox" data-options="required:true,validType:['valueStr'],tipPosition:'bottom'" />
+                <span id="txtLineNameTip"></span>
+            </li>
+            <li>
+                <label class="tdtitle" style="width:92px"><b>*</b>配送仓库：</label>
+                <select id="ddlWarehouseID" name="warehouseId" class="easyui-validatebox"      >
+                    <option th:remove="${distributionLineDto!=null}? tag" value="">--请选择配送仓库--</option>
+                    <option th:each="warehouseDto:${warehouseDtoList}"
+                            th:selected="${distributionLineDto!=null&&distributionLineDto.warehouseId==warehouseDto.warehouseId}"
+                            th:value="${warehouseDto.warehouseId}"
+                            th:text="${warehouseDto.warehouseName}"></option>
+                </select>
+            </li>
+            <li>
+                <label class="tdtitle" style="width:92px"><b>&nbsp;</b>配送员：</label>
+                <select id="ddlDistributionClerkId" name="distributionClerkId">
+                    <option th:remove="${distributionLineDto!=null&&distributionLineDto.distributionClerkId==1}? tag" value="0">--请选择配送员--</option>
+                    <option value="1" >配送员</option>
+                </select>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="xs-form-bottom">
+    <div class="xs-form-bottom-right">
+        <a id="btnSave" class="easyui-linkbutton" data-options="iconCls:'icon-save'" runat="server">保 存</a>
+        <a id="btnClose" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="xsjs.pageClose()">关 闭</a>
+    </div>
+</div>
+</body>
+</html>
